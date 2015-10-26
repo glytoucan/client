@@ -33,7 +33,7 @@ public class Application implements CommandLineRunner {
 		HttpEntity requestEntity = new HttpEntity(getHeaders("aoki" + ":"
 				+ "asdf"));
 		final ResponseEntity<Message> responseEntity = restTemplate.exchange(
-				"http://localhost:8080/test", HttpMethod.GET, requestEntity,
+				"http://localhost:8080/", HttpMethod.GET, requestEntity,
 				Message.class);
 		logger.debug(">" + responseEntity.getBody().toString());
 	}
@@ -49,5 +49,4 @@ public class Application implements CommandLineRunner {
 
 		return headers;
 	}
-
 }
