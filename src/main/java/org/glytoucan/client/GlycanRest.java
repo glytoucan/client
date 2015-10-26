@@ -27,7 +27,7 @@ public class GlycanRest implements GlycanSpec {
 		RestTemplate restTemplate = new RestTemplate();
 		HttpEntity requestEntity = new HttpEntity(getHeaders(gmap));
 		final ResponseEntity<Message> responseEntity = restTemplate.exchange(
-				(String)gmap.get(GlycanSpec.HOSTNAME) + (String)gmap.get(GlycanSpec.REGISTRATION), HttpMethod.GET, requestEntity,
+				(String)gmap.get(GlycanSpec.HOSTNAME) + (String)gmap.get(GlycanSpec.CONTEXT_PATH), HttpMethod.GET, requestEntity,
 				Message.class);
 		logger.debug(">" + responseEntity.getBody().toString());
 		
