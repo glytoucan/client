@@ -1,6 +1,6 @@
 package org.glytoucan.client;
 
-import org.glytoucan.model.GlycanMap;
+import java.util.Map;
 
 public interface GlycanSpec {
 
@@ -13,7 +13,7 @@ public interface GlycanSpec {
 	public static final String AUTH_BASIC_HEADER = "Basic ";
 	public static final String HOSTNAME = "HOSTNAME";
 	public static final String REGISTRATION = "REGISTRATION";
+	public static final String CONTEXT_PATH = "CONTEXT_PATH";
 
-	GlycanMap registerStructure(GlycanMap map);
-
+	Map<String, Object> registerStructure(Map<String, Object> map);
 }

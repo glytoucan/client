@@ -1,6 +1,7 @@
 package org.glytoucan.client;
 
 import java.util.Arrays;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -22,34 +23,34 @@ public class GlycanRest implements GlycanSpec {
 	}
 	
 	@Override
-	public GlycanMap registerStructure(GlycanMap gmap) {
+	public Map<String, Object> registerStructure(Map<String, Object> gmap) {
 		RestTemplate restTemplate = new RestTemplate();
 		HttpEntity requestEntity = new HttpEntity(getHeaders(gmap));
 		final ResponseEntity<Message> responseEntity = restTemplate.exchange(
-				gmap.getValue(GlycanSpec.HOSTNAME) + gmap.getValue(GlycanSpec.REGISTRATION), HttpMethod.GET, requestEntity,
+				(String)gmap.get(GlycanSpec.HOSTNAME) + (String)gmap.get(GlycanSpec.REGISTRATION), HttpMethod.GET, requestEntity,
 				Message.class);
 		logger.debug(">" + responseEntity.getBody().toString());
 		
 		Message msg = responseEntity.getBody();
-		gmap.setValueObject(GlycanSpec.MESSAGE, msg);
+		gmap.put(GlycanSpec.MESSAGE, msg);
 		return gmap;
 	}
 	
-	static HttpHeaders getHeaders(GlycanMap gmap) {
+	static HttpHeaders getHeaders(Map<String, Object> gmap) {
 		
 		HttpHeaders headers = new HttpHeaders();
 		
-		if (null != gmap.getValue(GlycanSpec.CONTENT_TYPE))
-			headers.setContentType((MediaType)gmap.getValueObject(GlycanSpec.CONTENT_TYPE));
+		if (null != gmap.get(GlycanSpec.CONTENT_TYPE))
+			headers.setContentType((MediaType)gmap.get(GlycanSpec.CONTENT_TYPE));
 		else
 			headers.setContentType(MediaType.APPLICATION_JSON);
 
-		if (null != gmap.getValue(GlycanSpec.MEDIA_TYPE))
-			headers.setAccept(Arrays.asList((MediaType)gmap.getValueObject(GlycanSpec.MEDIA_TYPE)));
+		if (null != gmap.get(GlycanSpec.MEDIA_TYPE))
+			headers.setAccept(Arrays.asList((MediaType)gmap.get(GlycanSpec.MEDIA_TYPE)));
 		else
 			headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
-		String auth = gmap.getValue(GlycanSpec.USERNAME) + ":"	+ gmap.getValue(GlycanSpec.PASSWORD);
+		String auth = gmap.get(GlycanSpec.USERNAME) + ":"	+ gmap.get(GlycanSpec.PASSWORD);
 		byte[] encodedAuthorisation = Base64Utils.encode(auth.getBytes());
 		headers.add(GlycanSpec.AUTHORIZATION_HEADER, GlycanSpec.AUTH_BASIC_HEADER
 				+ new String(encodedAuthorisation));
