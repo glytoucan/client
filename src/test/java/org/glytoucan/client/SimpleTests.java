@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.glytoucan.model.Message;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +22,7 @@ public class SimpleTests {
 	@Autowired
 	GlycanSpec glycanRest;
 	
+	// GlycanSpec glycanRest = Spring.getBeanOfType(GlycanSpec.class);
 	@Test(expected=HttpClientErrorException.class)
 	public void testSimpleProtected() {
 		Map<String, Object>  map = new HashMap<String, Object>();
