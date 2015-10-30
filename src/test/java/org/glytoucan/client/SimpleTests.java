@@ -28,7 +28,7 @@ public class SimpleTests {
 		Map<String, Object>  map = new HashMap<String, Object>();
 		map.put(GlycanSpec.USERNAME, "aoki");
 		map.put(GlycanSpec.API_KEY, "a");
-		map.put(GlycanSpec.HOSTNAME, "http://localhost:8080");
+		map.put(GlycanSpec.HOSTNAME, "http://test.api.glytoucan.org");
 		map.put(GlycanSpec.CONTEXT_PATH, "/test");
 		
 		Map<String, Object> results = glycanRest.registerStructure(map);
