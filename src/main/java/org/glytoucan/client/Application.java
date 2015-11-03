@@ -1,22 +1,10 @@
 package org.glytoucan.client;
 
-import java.util.Arrays;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.glytoucan.model.Message;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.Base64Utils;
-import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 public class Application {
@@ -26,5 +14,10 @@ public class Application {
 	public static void main(String[] args) {
 		ApplicationContext ctx = SpringApplication.run(
 				Application.class, args);
+		
+		AntiSpringJavaRest glyRest = new AntiSpringJavaRest();
+		String result = glyRest.register("RES\n" + "1b:b-dglc-HEX-1:5\n" + "2s:n-acetyl\n" + "3b:b-dgal-HEX-1:5\n" + "LIN\n"
+				+ "1:1d(2+1)2n\n" + "2:1o(4+1)3d");
+		logger.debug("result:>" + result);
 	}
 }

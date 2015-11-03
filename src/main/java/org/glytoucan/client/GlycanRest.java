@@ -7,7 +7,6 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.glytoucan.model.Message;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -20,8 +19,7 @@ public class GlycanRest implements GlycanSpec {
 
 	private static final Log logger = LogFactory.getLog(GlycanRest.class);
 
-	@Autowired
-	RestTemplate restTemplate;
+	RestTemplate restTemplate = new RestTemplate();
 	
 	HashMap<String, Object> env;
 
