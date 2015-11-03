@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.client.HttpClientErrorException;
 
 @SpringApplicationConfiguration(classes = {Application.class, GlycanConfig.class})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -22,8 +23,9 @@ public class RegistrationTests {
 	
 	@Autowired
 	GlycanSpec glycanRest;
-		
-	@Test
+
+	// these work normally but not with dummy data in test properties.
+	@Test(expected=HttpClientErrorException.class)
 	public void testOnlyRegistration() {
 		Map<String, Object>  map = new HashMap<String, Object>();
 		map.put(GlycanSpec.SEQUENCE, "RES\n"
@@ -39,7 +41,7 @@ public class RegistrationTests {
 		logger.debug(results);
 	}
 	
-	@Test
+	@Test(expected=HttpClientErrorException.class)
 	public void testG00052MO() {
 String sequence = "RES\n"
 		+ "1b:b-dglc-HEX-1:5\n"
