@@ -14,13 +14,13 @@ public class GlycanConfig {
 
 	private static final Log logger = LogFactory.getLog(GlycanConfig.class);
 	
-    @Value("${api.hostname}")
+    @Value("${api.hostname:http://test.api.glytoucan.org}")
     private String hostname;
 
-    @Value("${api.glycan.context}")
+    @Value("${api.glycan.context:/glycan}")
     private String context;
 
-    @Value("${username}")
+    @Value("${api.contributor.id}")
     private String username;
 
     @Value("${api.key}")
