@@ -6,6 +6,7 @@ import java.util.Map;
 import org.glytoucan.model.Message;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class AntiSpringJavaRest {
 
@@ -19,8 +20,8 @@ public class AntiSpringJavaRest {
 		// "2s:n-acetyl\n" + "3b:b-dgal-HEX-1:5\n" + "LIN\n"
 		// + "1:1d(2+1)2n\n" + "2:1o(4+1)3d");
 
-		ApplicationContext ctx = SpringApplication.run(Application.class);
-//		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(Application.class);
+//		ApplicationContext ctx = SpringApplication.run(Application.class);
+		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(Application.class);
 
 		GlycanSpec glycanSpec = ctx.getBean(GlycanRest.class);
 		Map<String, Object> results = glycanSpec.registerStructure(map);
