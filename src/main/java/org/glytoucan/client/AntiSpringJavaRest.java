@@ -4,32 +4,37 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.glytoucan.model.Message;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ApplicationContext;
+import org.glytoucan.model.spec.GlycanSpec;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class AntiSpringJavaRest {
 
-	// private static final Log logger =
-	// LogFactory.getLog(AntiSpringJavaRest.class);
-
 	public String register(String sequence) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(GlycanSpec.SEQUENCE, sequence);
-		// map.put(GlycanSpec.SEQUENCE, "RES\n" + "1b:b-dglc-HEX-1:5\n" +
-		// "2s:n-acetyl\n" + "3b:b-dgal-HEX-1:5\n" + "LIN\n"
-		// + "1:1d(2+1)2n\n" + "2:1o(4+1)3d");
 
-//		ApplicationContext ctx = SpringApplication.run(Application.class);
+		String result = submit(map);
+
+		return result;
+	}
+	
+	public String register(String sequence, String id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(GlycanSpec.SEQUENCE, sequence);
+		map.put(GlycanSpec.PUBLIC_DATABASE_STRUCTURE_ID, id);
+
+		String result = submit(map);
+
+		return result;
+	}
+
+	private String submit(Map<String, Object> map) {
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(Application.class);
 
 		GlycanSpec glycanSpec = ctx.getBean(GlycanRest.class);
 		Map<String, Object> results = glycanSpec.registerStructure(map);
-		// logger.debug(results);
 
 		Message messageResult = (Message) results.get(GlycanSpec.MESSAGE);
-		String result = messageResult.getMessage();
-
-		return result;
+		return messageResult.getMessage();
 	}
 }
