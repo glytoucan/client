@@ -77,8 +77,8 @@ String sequence = "RES\n"
 		Assert.assertEquals(msg.getMessage(), "G00052MO");
 	}
 	
-//	@Test(expected=HttpClientErrorException.class)
-	@Test
+	@Test(expected=HttpClientErrorException.class)
+//	@Test
 	public void testRegistrationWithId() {
 String sequence = "RES\n"
 		+ "1b:b-dglc-HEX-1:5\n"
