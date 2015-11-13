@@ -112,4 +112,64 @@ String sequence = "RES\n"
 		Message msg = (Message) results.get(GlycanSpec.MESSAGE);
 		Assert.assertEquals(msg.getMessage(), "G00048MO");
 	}
+	
+	@Test(expected=HttpClientErrorException.class)
+//	@Test
+	public void testNewwithCRLF() {
+        String sequence = "RES\r\n"
+        		+ "1b:x-llyx-PEN-1:5\r\n"
+        		+ "2b:x-dgal-HEX-1:5\r\n"
+        		+ "3b:x-dglc-HEX-1:5\r\n"
+        		+ "4b:x-dglc-HEX-1:5\r\n"
+        		+ "LIN\r\n"
+        		+ "1:1o(-1+1)2d\r\n"
+        		+ "2:2o(-1+1)3d\r\n"
+        		+ "3:3o(-1+1)4d";
+		/*RES
+	1b:b-dglc-HEX-1:5
+	2s:n-acetyl
+	3b:a-lgal-HEX-1:5|6:d
+	4b:b-dgal-HEX-1:5
+	5b:a-lgal-HEX-1:5|6:d
+	LIN
+	1:1d(2+1)2n
+	2:1o(3+1)3d
+	3:1o(4+1)4d
+	4:4o(2+1)5d*/
+		Map<String, Object>  map = new HashMap<String, Object>();
+		map.put(GlycanSpec.SEQUENCE, sequence);
+		map.put(GlycanSpec.PUBLIC_DATABASE_STRUCTURE_ID, "999");
+		
+		Map<String, Object>  results = glycanRest.registerStructure(map);
+		
+		logger.debug(results);
+		Message msg = (Message) results.get(GlycanSpec.MESSAGE);
+		Assert.assertEquals(msg.getMessage(), "G00052MO");
+	}
+	
+
+//	@Test(expected=HttpClientErrorException.class)
+	@Test
+	public void testInvalidGlycoct() {
+        String sequence = "RES\n"
+        		+ "1b:o-dgal-HEX-0:0|1:aldi|1:d\n"
+        		+ "2b:x-dglc-HEX-1:5\n"
+        		+ "3b:x-dgal-HEX-1:5\n"
+        		+ "4s:n-acetyl\n"
+        		+ "LIN\n"
+        		+ "1:1o(-1+1)2d\n"
+        		+ "2:2o(-1+1)3d\n"
+        		+ "3:2d(2+1)4n";
+		Map<String, Object>  map = new HashMap<String, Object>();
+		map.put(GlycanSpec.SEQUENCE, sequence);
+		map.put(GlycanSpec.PUBLIC_DATABASE_STRUCTURE_ID, "999");
+		
+		Map<String, Object>  results = glycanRest.registerStructure(map);
+		
+		logger.debug(results);
+		Message msg = (Message) results.get(GlycanSpec.MESSAGE);
+		Assert.assertEquals(msg.getMessage(), "G00052MO");
+	}
+	
+	
 }

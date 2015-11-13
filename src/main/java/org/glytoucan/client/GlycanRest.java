@@ -57,6 +57,7 @@ public class GlycanRest implements GlycanSpec {
 	}
 
 	private ResponseEntity<Message> submit(HttpEntity<?> requestEntity, String cmd) {
+		restTemplate.setErrorHandler(new ErrorHandler());
 		return restTemplate.exchange((String) env.get(GlycanSpec.HOSTNAME) + (String) env.get(GlycanSpec.CONTEXT_PATH)
 				+ cmd, HttpMethod.POST, requestEntity, Message.class);
 	}
