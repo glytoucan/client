@@ -148,10 +148,10 @@ String sequence = "RES\n"
 	}
 	
 
-//	@Test(expected=HttpClientErrorException.class)
-	@Test
+	@Test(expected=HttpClientErrorException.class)
+//	@Test
 	public void testInvalidGlycoct() {
-        String sequence = "RES\n"
+		String sequence = "RES\n"
         		+ "1b:o-dgal-HEX-0:0|1:aldi|1:d\n"
         		+ "2b:x-dglc-HEX-1:5\n"
         		+ "3b:x-dgal-HEX-1:5\n"
@@ -168,7 +168,8 @@ String sequence = "RES\n"
 		
 		logger.debug(results);
 		Message msg = (Message) results.get(GlycanSpec.MESSAGE);
-		Assert.assertEquals(msg.getMessage(), "G00052MO");
+		Assert.assertEquals(msg.getMessage(), "RES\n1b:o-dgal-HEX-0:0|1:aldi|1:d\n2b:x-dglc-HEX-1:5\n3b:x-dgal-HEX-1:5\n4s:n-acetyl\nLIN\n1:1o(-1+1)2d\n2:2o(-1+1)3d\n3:2d(2+1)4n not accepted");
+		Assert.assertTrue(msg.getError().contains("Error in GlycoCT validation:>Deoxy on C1 impossible"));
 	}
 	
 	
