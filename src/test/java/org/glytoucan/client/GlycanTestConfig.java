@@ -11,22 +11,22 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class GlycanConfig {
+public class GlycanTestConfig {
 
 	private static final Log logger = LogFactory.getLog(GlycanConfig.class);
+	
+    @Value("${api.hostname:http://localhost:8888}")
+    private String hostname;
 
-	@Value("${api.hostname:http://test.api.glytoucan.org}")
-	private String hostname;
+    @Value("${api.glycan.context:/glycans}")
+    private String context;
 
-	@Value("${api.glycan.context:/glycan}")
-	private String context;
+    @Value("${api.contributor.id}")
+    private String username;
 
-	@Value("${api.contributor.id}")
-	private String username;
-
-	@Value("${api.key}")
-	private String hash;
-
+    @Value("${api.key}")
+    private String hash;
+    
 	public String getUsername() {
 		return username;
 	}
@@ -58,7 +58,7 @@ public class GlycanConfig {
 	public void setContext(String context) {
 		this.context = context;
 	}
-
+	
 	@Bean
 	public GlycanSpec glycanSpec() {
 		HashMap<String, Object> env = new HashMap<String, Object>();
@@ -71,30 +71,25 @@ public class GlycanConfig {
 		logger.debug("username is:>" + username + "<");
 		env.put(GlycanSpec.API_KEY, getApiKey());
 		logger.debug("apikey is:>" + getApiKey() + "<");
-
+		
 		GlycanRest gr = new GlycanRest();
 		gr.setEnv(env);
 
 		return gr;
 	}
-
+	
 	@Bean
 	public GlycanQuerySpec glycanQuerySpec() {
 		HashMap<String, Object> env = new HashMap<String, Object>();
 
 		env.put(GlycanSpec.HOSTNAME, hostname);
 		logger.debug("hostname is:>" + hostname + "<");
-		env.put(GlycanSpec.CONTEXT_PATH, context);
+		env.put(GlycanSpec.CONTEXT_PATH, "/glycans");
 		logger.debug("context is:>" + context + "<");
-		// env.put(GlycanSpec.USERNAME, username);
-		// logger.debug("username is:>" + username + "<");
-		// env.put(GlycanSpec.API_KEY, getApiKey());
-		// logger.debug("apikey is:>" + getApiKey() + "<");
-
+		
 		GlycanQueryRest gr = new GlycanQueryRest();
 		gr.setEnv(env);
 
 		return gr;
 	}
-
 }
