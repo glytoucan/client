@@ -6,12 +6,29 @@
 	<groupId>org.glytoucan</groupId>
 	<artifactId>client</artifactId>
 	<version>0.0.2-SNAPSHOT</version>
-
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.3.0.M1</version>
+		<groupId>org.glytoucan</groupId>
+		<artifactId>pom-site</artifactId>
+		<version>0.24-SNAPSHOT</version>
+		<relativePath>../pom-site/pom.xml</relativePath>
 	</parent>
+
+	<properties>
+		<changelog.fileUri>${changelog.github.fileUri}</changelog.fileUri>
+		<changelog.revision.fileUri>${changelog.revision.github.fileUri}</changelog.revision.fileUri>
+		<cobertura.base.package>org.glytoucan.client</cobertura.base.package>
+		<inceptionYear>2016</inceptionYear>
+		<repository.domain>github.com</repository.domain>
+		<repository.user>glytoucan</repository.user>
+		<repository.name>client</repository.name>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<!-- <parent> -->
+	<!-- <groupId>org.springframework.boot</groupId> -->
+	<!-- <artifactId>spring-boot-starter-parent</artifactId> -->
+	<!-- <version>1.3.0.M1</version> -->
+	<!-- </parent> -->
 
 	<dependencies>
 		<dependency>
@@ -41,6 +58,10 @@
 			<artifactId>model</artifactId>
 			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.ws</groupId>
+			<artifactId>spring-ws-core</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -48,6 +69,31 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jvnet.jaxb2.maven2</groupId>
+				<artifactId>maven-jaxb2-plugin</artifactId>
+				<version>0.12.3</version>
+				<executions>
+					<execution>
+						<id>generate</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<schemaLanguage>WSDL</schemaLanguage>
+					<generatePackage>org.glytoucan.client.soap</generatePackage>
+					<schemas>
+						<schema>
+							<url>http://test.soap.api.glytoucan.org/ws/model.wsdl</url>
+						</schema>
+					</schemas>
+					<!-- <generateDirectory>${project.build.directory}/generated-source/java</generateDirectory> -->
+					<clearOutputDir>false</clearOutputDir>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -77,4 +123,16 @@
 		</snapshotRepository>
 	</distributionManagement>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<!-- Import dependency management from Spring Boot -->
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>1.3.2.RELEASE</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>

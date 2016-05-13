@@ -15,7 +15,7 @@ public class GlycanTestConfig {
 
 	private static final Log logger = LogFactory.getLog(GlycanConfig.class);
 	
-    @Value("${api.hostname:http://localhost:8888}")
+    @Value("${api.hostname:http://test.api.glytoucan.org}")
     private String hostname;
 
     @Value("${api.glycan.context:/glycans}")
