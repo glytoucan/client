@@ -5,6 +5,8 @@ import java.util.HashMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.glytoucan.model.spec.GlycanSpec;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,10 +22,10 @@ public class GlycanConfig {
 	@Value("${api.glycan.context:/glycan}")
 	private String context;
 
-	@Value("${api.contributor.id}")
+	@Value("${api.contributor.id:please}")
 	private String username;
 
-	@Value("${api.key}")
+	@Value("${api.key:read_the_manual_at_http://code.glytoucan.org/client}")
 	private String hash;
 
 	public String getUsername() {

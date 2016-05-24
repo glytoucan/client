@@ -30,6 +30,6 @@ public class GlycoSequenceClientTest {
     logger.debug(response.getDescription());
     Assert.assertEquals(new BigInteger("0"),response.getResponseMessage().getErrorCode());
     Assert.assertEquals("G00030MO", response.getAccessionNumber());
-    Assert.assertTrue(response.getDescription().contains("GlcNAcb1-2/4Mana1-3(GlcNAcb1-2/4Mana1-6)Manb1-4GlcNAcb1-4GlcNAc?-R"));
+    Assert.assertTrue(response.getDescription().contains("[beta-L-GlcpNAc-(1->2/4)-alpha-L-Manp-(1->6)-beta-L-GlcpNAc-(1->2/4)-alpha-L-Manp-(1->3)-beta-L-Manp-(1->4)]-beta-L-GlcpNAc-(1->4)-L-GlcNAc(?->"));
   }
 }
