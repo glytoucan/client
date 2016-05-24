@@ -31,5 +31,6 @@ public class GlycoSequenceClientTest {
     Assert.assertEquals(new BigInteger("0"),response.getResponseMessage().getErrorCode());
     Assert.assertEquals("G00030MO", response.getAccessionNumber());
     Assert.assertTrue(response.getDescription().contains("[beta-L-GlcpNAc-(1->2/4)-alpha-L-Manp-(1->6)-beta-L-GlcpNAc-(1->2/4)-alpha-L-Manp-(1->3)-beta-L-Manp-(1->4)]-beta-L-GlcpNAc-(1->4)-L-GlcNAc(?->"));
+    Assert.assertTrue(response.getDescription().contains("WURCS=2.0/4,7,6/[u2122h_2*NCC/3=O][12122h-1b_1-5_2*NCC/3=O][11122h-1b_1-5][21122h-1a_1-5]/1-2-3-4-2-4-2/a4-b1_b4-c1_c3-d1_c6-f1_e1-d2|d4_g1-f2|f4"));
   }
 }
