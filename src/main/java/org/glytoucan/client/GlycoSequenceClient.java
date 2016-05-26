@@ -12,9 +12,11 @@ public class GlycoSequenceClient extends WebServiceGatewaySupport {
 
   public GlycoSequenceDetailResponse detailRequest(String accessionNumber) {
     logger.debug("client querying :>" + accessionNumber + "<");
+    logger.debug("client accessiong default URI:>" + getDefaultUri() + "<");
     GlycoSequenceDetailRequest request = new GlycoSequenceDetailRequest();
     request.setAccessionNumber(accessionNumber);
 
+    
     // logger.debug(response);
     // logger.debug(response.getDescription());
     // Assert.assertEquals(new
