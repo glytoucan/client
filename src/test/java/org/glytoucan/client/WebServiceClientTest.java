@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import org.glycoinfo.vision.util.Encoding;
+import org.glytoucan.model.spec.GlycanClientQuerySpec;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,9 +24,12 @@ public class WebServiceClientTest {
   public static Logger logger = (Logger) LoggerFactory
 			.getLogger(WebServiceClientTest.class);
 
+  
+  @Autowired
+  GlycanClientQuerySpec gsClient;
+  
 @Test
 	public void image() throws Exception {
-		GlycanRest gsClient = new GlycanRest();
 		String image = gsClient.getImage(hostname, "RES\\n"
 				+ "1b:x-dglc-HEX-x:x\\n"
 				+ "2b:b-dgal-HEX-1:5\\n"
@@ -40,9 +45,8 @@ public class WebServiceClientTest {
 		logger.debug(image);
 	}
 
-//	@Test
+	@Test
 	public void imageTest() throws Exception {
-	  GlycanRest gsClient = new GlycanRest();
 		String image = gsClient.getImage(hostname, "RES\\n"
 				+ "1b:x-dgal-HEX-1:5\\n"
 				+ "2b:x-dman-HEX-1:5\\n"
@@ -56,7 +60,6 @@ public class WebServiceClientTest {
 
 	@Test
 	public void imageTestmanglc() throws Exception {
-	  GlycanRest gsClient = new GlycanRest();
 		String image = gsClient.getImage(hostname, "RES\\n"
 				+ "1b:x-dman-HEX-1:5\\n"
 				+ "2b:x-dglc-HEX-1:5\\n"
@@ -68,8 +71,7 @@ public class WebServiceClientTest {
 	
 	 @Test
 	  public void imageTestG00026MO() throws Exception {
-	    GlycanRest gsClient = new GlycanRest();
-	    String image = gsClient.getImageWurcs(hostname, "WURCS=2.0/4,5,4/[u2122h_2*NCC/3=O][a2122h-1b_1-5_2*NCC/3=O][a1122h-1b_1-5][a1122h-1a_1-5]/1-2-3-4-4/a4-b1_b4-c1_c3-d1_c6-e1");
+	    String image = gsClient.getImage(hostname, "WURCS=2.0/4,5,4/[u2122h_2*NCC/3=O][a2122h-1b_1-5_2*NCC/3=O][a1122h-1b_1-5][a1122h-1a_1-5]/1-2-3-4-4/a4-b1_b4-c1_c3-d1_c6-e1");
 	    Assert.assertNotNull(image);
 	    logger.debug(image);
 	  }
@@ -81,10 +83,19 @@ public class WebServiceClientTest {
         BufferedImage newImg;
         String imgstr;
         GlycanRest gsClient = new GlycanRest();
-        imgstr = gsClient.encodeToString(img, "png");
+        imgstr = Encoding.encodeToString(img, "png");
         System.out.println(imgstr);
-        newImg = gsClient.decodeToImage(imgstr);
+        newImg = Encoding.decodeToImage(imgstr);
         ImageIO.write(newImg, "png", new File("/tmp/CopyOfTestImage.png"));
         /* Test image to string and string to image finish */
 	}
+	
+//String url = hostname + "/glyspace/service/glycans/image/glycan?format=png&notation=cfg&style=extended";
+	@Test
+	public void testRegistered() throws IOException {
+    String image = gsClient.getRegisteredImage(hostname, "G00055MO", "png", "cfg", "extended");
+    Assert.assertNotNull(image);
+    logger.debug(image);
+	}
+	
 }
