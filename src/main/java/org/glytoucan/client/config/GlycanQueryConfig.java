@@ -42,9 +42,9 @@ public class GlycanQueryConfig {
 	public GlycanClientQuerySpec glycanQuerySpec() {
 		HashMap<String, Object> env = new HashMap<String, Object>();
 
-		env.put(GlycanClientRegisterSpec.HOSTNAME, hostname);
+		env.put(GlycanClientQuerySpec.HOSTNAME, hostname);
 		logger.debug("hostname is:>" + hostname + "<");
-		env.put(GlycanClientRegisterSpec.CONTEXT_PATH, context);
+		env.put(GlycanClientQuerySpec.CONTEXT_PATH, context);
 		logger.debug("context is:>" + context + "<");
 		// env.put(GlycanSpec.USERNAME, username);
 		// logger.debug("username is:>" + username + "<");
