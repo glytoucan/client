@@ -5,7 +5,6 @@
 
 	<groupId>org.glytoucan</groupId>
 	<artifactId>client</artifactId>
-	<version>0.0.3-SNAPSHOT</version>
 	<parent>
 		<groupId>org.glytoucan</groupId>
 		<artifactId>pom-site</artifactId>
@@ -23,12 +22,6 @@
 		<repository.name>client</repository.name>
 		<java.version>1.8</java.version>
 	</properties>
-
-	<!-- <parent> -->
-	<!-- <groupId>org.springframework.boot</groupId> -->
-	<!-- <artifactId>spring-boot-starter-parent</artifactId> -->
-	<!-- <version>1.3.0.M1</version> -->
-	<!-- </parent> -->
 
 	<dependencies>
 		<dependency>
