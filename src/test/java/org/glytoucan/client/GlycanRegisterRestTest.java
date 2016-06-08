@@ -17,10 +17,10 @@ import org.springframework.web.client.HttpClientErrorException;
 
 @SpringApplicationConfiguration(classes = {Application.class, GlycanTestConfig.class})
 @RunWith(SpringJUnit4ClassRunner.class)
-public class RegistrationTests {
+public class GlycanRegisterRestTest {
 	
 	private static final Log logger = LogFactory
-			.getLog(RegistrationTests.class);
+			.getLog(GlycanRegisterRestTest.class);
 	
 	@Autowired
 	GlycanClientRegisterSpec glycanRest;

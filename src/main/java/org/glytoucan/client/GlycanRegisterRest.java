@@ -47,9 +47,9 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class GlycanRest implements GlycanClientRegisterSpec {
+public class GlycanRegisterRest implements GlycanClientRegisterSpec {
 
-	private static final Log logger = LogFactory.getLog(GlycanRest.class);
+	private static final Log logger = LogFactory.getLog(GlycanRegisterRest.class);
 
 	RestTemplate restTemplate = new RestTemplate();
 
@@ -63,7 +63,7 @@ public class GlycanRest implements GlycanClientRegisterSpec {
 		this.env = env;
 	}
 
-	public GlycanRest() {
+	public GlycanRegisterRest() {
 	}
 
 	@Override

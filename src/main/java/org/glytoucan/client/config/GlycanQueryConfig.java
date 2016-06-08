@@ -39,7 +39,7 @@ public class GlycanQueryConfig {
 	}
 
 	@Bean
-	public GlycanClientQuerySpec glycanQuerySpec() {
+	public GlycanClientQuerySpec glycanClientQuerySpec() {
 		HashMap<String, Object> env = new HashMap<String, Object>();
 
 		env.put(GlycanClientQuerySpec.HOSTNAME, hostname);

@@ -125,22 +125,20 @@ public class GlycanQueryRest implements GlycanClientQuerySpec {
     gmap.put(GlycanClientRegisterSpec.MESSAGE, responseEntity.getBody());
     return gmap;
   }
-
+  
   @Override
-  public String getImage(String hostname, String sequence)
+  public String getImage(Map<String, Object> data)
       throws IOException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
-    Map<String, Object> data = new HashMap<String, Object>();
-    data.put("structure", sequence);
-    data.put("encoding", "glycoct");
-    return getImage(hostname, sequence, data);
-  }
-
-  @Override
-  public String getImage(String hostname, String sequence, Map<String, Object> data)
-      throws IOException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+    
+    if (data.containsKey(GlycanClientQuerySpec.ID)) {
+      return getRegisteredImage(data);
+    }
+    
+    String params = getParams(data);
     // String url = hostname +
     // "/glyspace/service/glycans/image/glycan?format=png&notation=cfg&style=extended";
-    String url = hostname + "/glycans/image/glycan?format=png&notation=cfg&style=extended";
+    String url = env.get(GlycanClientQuerySpec.HOSTNAME) + "/glycans/image/glycan?" + getParams(data);
+    logger.debug("request:>" + url);
 
     SSLContextBuilder builder = new SSLContextBuilder();
     builder.loadTrustMaterial(null, new TrustSelfSignedStrategy());
@@ -155,10 +153,7 @@ public class GlycanQueryRest implements GlycanClientQuerySpec {
 
     List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
 
-    ObjectMapper mapper = new ObjectMapper();
-    // String output = mapper.writeValueAsString(data);
-    String output = "{\"format\":\"" + data.get("encoding") + "\",\"sequence\":\"" + sequence + "\"}";
-    // logger.debug("output:"+output);
+    String output = "{\"format\":\"" + data.get("encoding") + "\",\"sequence\":\"" + data.get(GlycanClientQuerySpec.SEQUENCE) + "\"}";
     logger.debug("output:" + output);
 
     post.setEntity(new StringEntity(output));
@@ -187,20 +182,25 @@ public class GlycanQueryRest implements GlycanClientQuerySpec {
     return "data:image/png;base64," + image;
   }
 
+  private String getParams(Map<String, Object> data) {
+    String imageFormat = (String) data.get(GlycanClientQuerySpec.IMAGE_FORMAT);
+    String notation = (String) data.get(GlycanClientQuerySpec.IMAGE_NOTATION);
+    String style = (String) data.get(GlycanClientQuerySpec.IMAGE_STYLE);
+    return "format=" + imageFormat + "&notation=" + notation + "&style=" + style;
+  }
+
   /**
    * 
-   * API hostname and accession number to retrieve a registered glycan image.
+   * accession number to retrieve a registered glycan image.
    * 
    * @param hostname
    * @param accessionNumber
    * @return
    * @throws IOException
    */
-  @Override
-  public String getRegisteredImage(String hostname, String accessionNumber, String imageFormat, String notation,
-      String style) throws IOException {
-    String url = hostname + "/" + accessionNumber + "/glycans/image/glycan?format=" + imageFormat + "&notation="
-        + notation + "&style=" + style;
+  public String getRegisteredImage(Map<String, Object> data) throws IOException {
+    String url = env.get(GlycanClientQuerySpec.HOSTNAME) + (String) env.get(GlycanClientRegisterSpec.CONTEXT_PATH) + "/" + data.get(GlycanClientQuerySpec.ID) + "/image?" + getParams(data);
+    logger.debug("request:>" + url);
 
     HttpClient client = HttpClientBuilder.create().build();
     HttpGet request = new HttpGet(url);

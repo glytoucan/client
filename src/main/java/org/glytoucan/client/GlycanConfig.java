@@ -73,7 +73,7 @@ public class GlycanConfig {
 		env.put(GlycanClientRegisterSpec.API_KEY, getApiKey());
 		logger.debug("apikey is:>" + getApiKey() + "<");
 
-		GlycanRest gr = new GlycanRest();
+		GlycanRegisterRest gr = new GlycanRegisterRest();
 		gr.setEnv(env);
 
 		return gr;

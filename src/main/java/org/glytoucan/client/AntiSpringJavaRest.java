@@ -31,7 +31,7 @@ public class AntiSpringJavaRest {
 	private String submit(Map<String, Object> map) {
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(Application.class);
 
-		GlycanClientRegisterSpec glycanSpec = ctx.getBean(GlycanRest.class);
+		GlycanClientRegisterSpec glycanSpec = ctx.getBean(GlycanRegisterRest.class);
 		Map<String, Object> results = glycanSpec.registerStructure(map);
 
 		Message messageResult = (Message) results.get(GlycanClientRegisterSpec.MESSAGE);
