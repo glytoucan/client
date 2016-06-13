@@ -62,7 +62,7 @@
 			<groupId>org.springframework.ws</groupId>
 			<artifactId>spring-ws-core</artifactId>
 		</dependency>
-        <dependency>
+		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 			<version>4.3.6</version>
@@ -115,6 +115,10 @@
 
 	<repositories>
 		<repository>
+			<id>bintray</id>
+			<url>http://jcenter.bintray.com</url>
+		</repository>
+		<repository>
 			<id>spring-releases</id>
 			<url>http://repo.spring.io/libs-release</url>
 		</repository>
@@ -124,6 +128,12 @@
 		</repository>
 	</repositories>
 
+	<pluginRepositories>
+		<pluginRepository>
+			<id>bintray</id>
+			<url>http://jcenter.bintray.com</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<distributionManagement>
 		<repository>
