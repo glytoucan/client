@@ -5,7 +5,6 @@
 
 	<groupId>org.glytoucan</groupId>
 	<artifactId>client</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
 	<parent>
 		<groupId>org.glytoucan</groupId>
 		<artifactId>pom-site</artifactId>
@@ -23,12 +22,6 @@
 		<repository.name>client</repository.name>
 		<java.version>1.8</java.version>
 	</properties>
-
-	<!-- <parent> -->
-	<!-- <groupId>org.springframework.boot</groupId> -->
-	<!-- <artifactId>spring-boot-starter-parent</artifactId> -->
-	<!-- <version>1.3.0.M1</version> -->
-	<!-- </parent> -->
 
 	<dependencies>
 		<dependency>
@@ -67,6 +60,11 @@
 			<artifactId>httpclient</artifactId>
 			<version>4.3.6</version>
 		</dependency>
+		<dependency>
+			<groupId>org.glycoinfo</groupId>
+			<artifactId>vision</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -88,6 +86,17 @@
 						</goals>
 					</execution>
 				</executions>
+<!-- 				<groupId>org.codehaus.mojo</groupId> -->
+<!-- 				<artifactId>jaxb2-maven-plugin</artifactId> -->
+<!-- 				<version>1.6</version> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<id>xjc</id> -->
+<!-- 						<goals> -->
+<!-- 							<goal>xjc</goal> -->
+<!-- 						</goals> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
 				<configuration>
 					<schemaLanguage>WSDL</schemaLanguage>
 					<generatePackage>org.glytoucan.client.soap</generatePackage>
@@ -154,7 +163,7 @@
 				<!-- Import dependency management from Spring Boot -->
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
-				<version>1.3.2.RELEASE</version>
+				<version>1.3.3.RELEASE</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>

@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.glytoucan.model.spec.GlycanSpec;
+import org.glytoucan.model.spec.GlycanClientRegisterSpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -61,19 +61,19 @@ public class GlycanConfig {
 	}
 
 	@Bean
-	public GlycanSpec glycanSpec() {
+	public GlycanClientRegisterSpec glycanSpec() {
 		HashMap<String, Object> env = new HashMap<String, Object>();
 
-		env.put(GlycanSpec.HOSTNAME, hostname);
+		env.put(GlycanClientRegisterSpec.HOSTNAME, hostname);
 		logger.debug("hostname is:>" + hostname + "<");
-		env.put(GlycanSpec.CONTEXT_PATH, context);
+		env.put(GlycanClientRegisterSpec.CONTEXT_PATH, context);
 		logger.debug("context is:>" + context + "<");
-		env.put(GlycanSpec.USERNAME, username);
+		env.put(GlycanClientRegisterSpec.USERNAME, username);
 		logger.debug("username is:>" + username + "<");
-		env.put(GlycanSpec.API_KEY, getApiKey());
+		env.put(GlycanClientRegisterSpec.API_KEY, getApiKey());
 		logger.debug("apikey is:>" + getApiKey() + "<");
 
-		GlycanRest gr = new GlycanRest();
+		GlycanRegisterRest gr = new GlycanRegisterRest();
 		gr.setEnv(env);
 
 		return gr;

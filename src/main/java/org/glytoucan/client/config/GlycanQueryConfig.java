@@ -5,8 +5,8 @@ import java.util.HashMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.glytoucan.client.GlycanQueryRest;
-import org.glytoucan.model.spec.GlycanQuerySpec;
-import org.glytoucan.model.spec.GlycanSpec;
+import org.glytoucan.model.spec.GlycanClientQuerySpec;
+import org.glytoucan.model.spec.GlycanClientRegisterSpec;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,12 +39,12 @@ public class GlycanQueryConfig {
 	}
 
 	@Bean
-	public GlycanQuerySpec glycanQuerySpec() {
+	public GlycanClientQuerySpec glycanClientQuerySpec() {
 		HashMap<String, Object> env = new HashMap<String, Object>();
 
-		env.put(GlycanSpec.HOSTNAME, hostname);
+		env.put(GlycanClientQuerySpec.HOSTNAME, hostname);
 		logger.debug("hostname is:>" + hostname + "<");
-		env.put(GlycanSpec.CONTEXT_PATH, context);
+		env.put(GlycanClientQuerySpec.CONTEXT_PATH, context);
 		logger.debug("context is:>" + context + "<");
 		// env.put(GlycanSpec.USERNAME, username);
 		// logger.debug("username is:>" + username + "<");
