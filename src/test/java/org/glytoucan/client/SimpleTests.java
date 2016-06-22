@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 import org.springframework.web.client.HttpClientErrorException;
 
-@SpringApplicationConfiguration(classes = {Application.class, GlycanTestConfig.class})
+@SpringApplicationConfiguration(classes = {Application.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SimpleTests {
 	

@@ -59,37 +59,37 @@ public class GlycanTestConfig {
 		this.context = context;
 	}
 	
-	@Bean
-	public GlycanClientRegisterSpec glycanSpec() {
-		HashMap<String, Object> env = new HashMap<String, Object>();
-
-		env.put(GlycanClientRegisterSpec.HOSTNAME, hostname);
-		logger.debug("hostname is:>" + hostname + "<");
-		env.put(GlycanClientRegisterSpec.CONTEXT_PATH, context);
-		logger.debug("context is:>" + context + "<");
-		env.put(GlycanClientRegisterSpec.USERNAME, username);
-		logger.debug("username is:>" + username + "<");
-		env.put(GlycanClientRegisterSpec.API_KEY, getApiKey());
-		logger.debug("apikey is:>" + getApiKey() + "<");
-		
-		GlycanRegisterRest gr = new GlycanRegisterRest();
-		gr.setEnv(env);
-
-		return gr;
-	}
-	
-	@Bean
-	public GlycanClientQuerySpec glycanQuerySpec() {
-		HashMap<String, Object> env = new HashMap<String, Object>();
-
-		env.put(GlycanClientRegisterSpec.HOSTNAME, hostname);
-		logger.debug("hostname is:>" + hostname + "<");
-		env.put(GlycanClientRegisterSpec.CONTEXT_PATH, "/glycans");
-		logger.debug("context is:>" + context + "<");
-		
-		GlycanQueryRest gr = new GlycanQueryRest();
-		gr.setEnv(env);
-
-		return gr;
-	}
+//	@Bean
+//	public GlycanClientRegisterSpec glycanSpec() {
+//		HashMap<String, Object> env = new HashMap<String, Object>();
+//
+//		env.put(GlycanClientRegisterSpec.HOSTNAME, hostname);
+//		logger.debug("hostname is:>" + hostname + "<");
+//		env.put(GlycanClientRegisterSpec.CONTEXT_PATH, context);
+//		logger.debug("context is:>" + context + "<");
+//		env.put(GlycanClientRegisterSpec.USERNAME, username);
+//		logger.debug("username is:>" + username + "<");
+//		env.put(GlycanClientRegisterSpec.API_KEY, getApiKey());
+//		logger.debug("apikey is:>" + getApiKey() + "<");
+//		
+//		GlycanRegisterRest gr = new GlycanRegisterRest();
+//		gr.setEnv(env);
+//
+//		return gr;
+//	}
+//	
+//	@Bean
+//	public GlycanClientQuerySpec glycanQuerySpec() {
+//		HashMap<String, Object> env = new HashMap<String, Object>();
+//
+//		env.put(GlycanClientRegisterSpec.HOSTNAME, hostname);
+//		logger.debug("hostname is:>" + hostname + "<");
+//		env.put(GlycanClientRegisterSpec.CONTEXT_PATH, "/glycans");
+//		logger.debug("context is:>" + context + "<");
+//		
+//		GlycanQueryRest gr = new GlycanQueryRest();
+//		gr.setEnv(env);
+//
+//		return gr;
+//	}
 }
