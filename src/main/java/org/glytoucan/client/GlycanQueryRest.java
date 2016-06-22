@@ -49,6 +49,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class GlycanQueryRest implements GlycanClientQuerySpec {
 
+  public static String BASE64HEADER = "data:image/png;base64,";
+
   private static final Log logger = LogFactory.getLog(GlycanQueryRest.class);
 
   RestTemplate restTemplate = new RestTemplate();
@@ -125,15 +127,14 @@ public class GlycanQueryRest implements GlycanClientQuerySpec {
     gmap.put(GlycanClientRegisterSpec.MESSAGE, responseEntity.getBody());
     return gmap;
   }
-  
+
   @Override
-  public String getImage(Map<String, Object> data)
+  public byte[] getImage(Map<String, Object> data)
       throws IOException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
-    
     if (data.containsKey(GlycanClientQuerySpec.ID)) {
       return getRegisteredImage(data);
     }
-    
+
     String params = getParams(data);
     // String url = hostname +
     // "/glyspace/service/glycans/image/glycan?format=png&notation=cfg&style=extended";
@@ -153,33 +154,45 @@ public class GlycanQueryRest implements GlycanClientQuerySpec {
 
     List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
 
-    String output = "{\"format\":\"" + data.get("encoding") + "\",\"sequence\":\"" + data.get(GlycanClientQuerySpec.SEQUENCE) + "\"}";
+    String output = "{\"format\":\"" + data.get("encoding") + "\",\"sequence\":\""
+        + data.get(GlycanClientQuerySpec.SEQUENCE) + "\"}";
     logger.debug("output:" + output);
 
     post.setEntity(new StringEntity(output));
 
     // HttpClient client = HttpClientBuilder.create().build();
-
     HttpResponse response = client.execute(post);
     int code = response.getStatusLine().getStatusCode();
     logger.debug("status code:" + code);
     if (code != 200) {
       return null;
     }
-
-    BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-
-    // StringBuilder result = new StringBuilder();
-    // String line = "";
-    // while ((line = rd.readLine()) != null) {
-    // logger.debug("line:>" + line);
-    // result.append(line);
-    // }
+    
     BufferedImage bufimage = ImageIO.read(response.getEntity().getContent());
+    ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
-    String image = Encoding.encodeToString(bufimage, "png");
+    String imageFormat = (String) data.get(GlycanClientQuerySpec.IMAGE_FORMAT);
+    ImageIO.write(bufimage, imageFormat, bos);
+    byte[] imageBytes = bos.toByteArray();
+    bos.close();
 
-    return "data:image/png;base64," + image;
+
+//    BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+//    StringBuilder result = new StringBuilder();
+//    String line = "";
+//
+//    while ((line = rd.readLine()) != null) {
+//      result.append(line + "\n");
+//    }
+
+//    return result.toString().getBytes();
+    return imageBytes;
+  }
+
+  @Override
+  public String getImageBase64(Map<String, Object> data)
+      throws IOException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+    return BASE64HEADER + DatatypeConverter.printBase64Binary(getImage(data));
   }
 
   private String getParams(Map<String, Object> data) {
@@ -198,8 +211,9 @@ public class GlycanQueryRest implements GlycanClientQuerySpec {
    * @return
    * @throws IOException
    */
-  public String getRegisteredImage(Map<String, Object> data) throws IOException {
-    String url = env.get(GlycanClientQuerySpec.HOSTNAME) + (String) env.get(GlycanClientRegisterSpec.CONTEXT_PATH) + "/" + data.get(GlycanClientQuerySpec.ID) + "/image?" + getParams(data);
+  public byte[] getRegisteredImage(Map<String, Object> data) throws IOException {
+    String url = env.get(GlycanClientQuerySpec.HOSTNAME) + (String) env.get(GlycanClientRegisterSpec.CONTEXT_PATH) + "/"
+        + data.get(GlycanClientQuerySpec.ID) + "/image?" + getParams(data);
     logger.debug("request:>" + url);
 
     HttpClient client = HttpClientBuilder.create().build();
@@ -210,13 +224,23 @@ public class GlycanQueryRest implements GlycanClientQuerySpec {
     if (code != 200) {
       return null;
     }
-    BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 
-    StringBuilder result = new StringBuilder("data:image/png;base64,");
-    String line = "";
-    while ((line = rd.readLine()) != null) {
-      result.append(DatatypeConverter.printBase64Binary(line.getBytes()) + "\n");
-    }
-    return result.toString();
+    BufferedImage bufimage = ImageIO.read(response.getEntity().getContent());
+    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+    String imageFormat = (String) data.get(GlycanClientQuerySpec.IMAGE_FORMAT);
+    ImageIO.write(bufimage, imageFormat, bos);
+    byte[] imageBytes = bos.toByteArray();
+    bos.close();
+
+//    BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+//    StringBuilder result = new StringBuilder();
+//    String line = "";
+//
+//    while ((line = rd.readLine()) != null) {
+//      result.append(line);
+//    }
+
+    return imageBytes;
   }
 }

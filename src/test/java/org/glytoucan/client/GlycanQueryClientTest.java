@@ -52,7 +52,7 @@ public class GlycanQueryClientTest {
         + "3:3o(3+1)4d\\n"
         + "4:4d(2+1)5n");
 
-		String image = gsClient.getImage(data);
+		String image = gsClient.getImageBase64(data);
 		Assert.assertNotNull(image);
 		logger.debug(image);
 	}
@@ -70,7 +70,7 @@ public class GlycanQueryClientTest {
         + "LIN\\n"
         + "1:1o(-1+1)2d\\n"
         + "2:1d(2+1)3n");
-		String image = gsClient.getImage(data);
+		String image = gsClient.getImageBase64(data);
 		Assert.assertNotNull(image);
 		logger.debug(image);
 	}
@@ -86,7 +86,7 @@ public class GlycanQueryClientTest {
         + "2b:x-dglc-HEX-1:5\\n"
         + "LIN\\n"
         + "1:1o(-1+1)2d\\n");
-		String image = gsClient.getImage(data);
+		String image = gsClient.getImageBase64(data);
 		Assert.assertNotNull(image);
 		logger.debug(image);
 	}
@@ -98,7 +98,7 @@ public class GlycanQueryClientTest {
 	    data.put(GlycanClientQuerySpec.IMAGE_NOTATION, "cfg");
 	    data.put(GlycanClientQuerySpec.IMAGE_STYLE, "extended");
 	    data.put(GlycanClientQuerySpec.SEQUENCE, "WURCS=2.0/4,5,4/[u2122h_2*NCC/3=O][a2122h-1b_1-5_2*NCC/3=O][a1122h-1b_1-5][a1122h-1a_1-5]/1-2-3-4-4/a4-b1_b4-c1_c3-d1_c6-e1");
-	    String image = gsClient.getImage(data);
+	    String image = gsClient.getImageBase64(data);
 
 	    Assert.assertNotNull(image);
 	    logger.debug(image);
@@ -112,7 +112,7 @@ public class GlycanQueryClientTest {
 	       data.put(GlycanClientQuerySpec.IMAGE_NOTATION, "cfg");
 	       data.put(GlycanClientQuerySpec.IMAGE_STYLE, "extended");
 	       data.put(GlycanClientQuerySpec.SEQUENCE, "WURCS=2.0/4,13,12/[a2122h-1x_1-5_2*NCC/3=O][a1122h-1x_1-5][a1221m-1x_1-5][a2112h-1x_1-5]/1-1-2-2-1-3-4-1-4-2-1-4-1/a?-b1_b?-c1_c?-d1_c?-j1_d?-e1_d?-h1_e?-f1_e?-g1_h?-i1_j?-k1_j?-m1_k?-l1");
-	       String image = gsClient.getImage(data);
+	       String image = gsClient.getImageBase64(data);
 
 	       Assert.assertNotNull(image);
 	       logger.debug(image);
@@ -125,7 +125,7 @@ public class GlycanQueryClientTest {
          data.put(GlycanClientQuerySpec.IMAGE_NOTATION, "cfg");
          data.put(GlycanClientQuerySpec.IMAGE_STYLE, "extended");
          data.put(GlycanClientQuerySpec.SEQUENCE, "WURCS=2.0/4,11,10/[a2122h-1x_1-5_2*NCC/3=O][a1122h-1x_1-5][a2112h-1x_1-5][a1221m-1x_1-5]/1-1-2-2-1-3-2-1-4-1-3/a?-b1_a?-i1_b?-c1_c?-d1_c?-g1_d?-e1_e?-f1_g?-h1_j?-k1_d?-g?-j1");
-         String image = gsClient.getImage(data);
+         String image = gsClient.getImageBase64(data);
 
          Assert.assertNotNull(image);
          logger.debug(image);
@@ -155,7 +155,7 @@ public class GlycanQueryClientTest {
     data.put(GlycanClientQuerySpec.IMAGE_NOTATION, "cfg");
     data.put(GlycanClientQuerySpec.IMAGE_STYLE, "extended");
     data.put(GlycanClientQuerySpec.ID, "G00055MO");
-    String image = gsClient.getImage(data);
+    String image = gsClient.getImageBase64(data);
     Assert.assertNotNull(image);
     logger.debug(image);
 	}
