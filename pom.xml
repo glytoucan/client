@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>org.glytoucan</groupId>
 		<artifactId>pom-site</artifactId>
-		<version>1.2</version>
+		<version>1.2.1-SNAPSHOT</version>
 		<relativePath>../pom-site/pom.xml</relativePath>
 	</parent>
 
