@@ -33,4 +33,18 @@ public class GlycoSequenceClientTest {
     Assert.assertTrue(response.getDescription().contains("GlcNAc(b1-2/4)Man(a1-3)[GlcNAc(b1-2/4)Man(a1-6)]Man(b1-4)GlcNAc(b1-4)GlcNAc"));
     Assert.assertTrue(response.getDescription().contains("WURCS=2.0/4,7,6/[u2122h_2*NCC/3=O][12122h-1b_1-5_2*NCC/3=O][11122h-1b_1-5][21122h-1a_1-5]/1-2-3-4-2-4-2/a4-b1_b4-c1_c3-d1_c6-f1_e1-d2|d4_g1-f2|f4"));
   }
+  
+  @Test
+  public void testDetailRequestG97036DW() throws Exception {
+    
+    GlycoSequenceDetailResponse response = glycoSequenceClient.detailRequest("G97036DW");
+    Assert.assertNotNull(response);
+    
+    logger.debug(response);
+    logger.debug(response.getDescription());
+    Assert.assertEquals(new BigInteger("0"),response.getResponseMessage().getErrorCode());
+    Assert.assertEquals("G00030MO", response.getAccessionNumber());
+    Assert.assertTrue(response.getDescription().contains("GlcNAc(b1-2/4)Man(a1-3)[GlcNAc(b1-2/4)Man(a1-6)]Man(b1-4)GlcNAc(b1-4)GlcNAc"));
+    Assert.assertTrue(response.getDescription().contains("WURCS=2.0/4,7,6/[u2122h_2*NCC/3=O][12122h-1b_1-5_2*NCC/3=O][11122h-1b_1-5][21122h-1a_1-5]/1-2-3-4-2-4-2/a4-b1_b4-c1_c3-d1_c6-f1_e1-d2|d4_g1-f2|f4"));
+  }
 }
