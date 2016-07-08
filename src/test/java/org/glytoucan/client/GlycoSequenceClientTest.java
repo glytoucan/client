@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.glytoucan.client.soap.GlycoSequenceDetailResponse;
+import org.glytoucan.client.soap.GlycoSequenceSearchResponse;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,4 +47,30 @@ public class GlycoSequenceClientTest {
     Assert.assertEquals("G97036DW", response.getAccessionNumber());
     Assert.assertTrue(response.getDescription().contains("org.eurocarbdb.MolecularFramework.util.visitor.GlycoVisitorException"));
   }
+  
+  @Test
+  public void testTextSearchWurcs() throws Exception {
+    
+    GlycoSequenceSearchResponse response = glycoSequenceClient.textSearchRequest("WURCS=2.0/4,7,6/[u2122h_2*NCC/3=O][a2122h-1b_1-5_2*NCC/3=O][a1122h-1b_1-5][a1122h-1a_1-5]/1-2-3-4-2-4-2/a4-b1_b4-c1_c3-d1_c6-f1_e1-d2|d4_g1-f2|f4");
+    Assert.assertNotNull(response);
+    
+    logger.debug(response);
+    logger.debug(response.getAccessionNumber());
+    Assert.assertEquals(new BigInteger("0"),response.getResponseMessage().getErrorCode());
+    Assert.assertEquals("G00030MO", response.getAccessionNumber());
+  }
+
+  
+  @Test
+  public void testTextSearchIupac() throws Exception {
+    
+    GlycoSequenceSearchResponse response = glycoSequenceClient.textSearchRequest("Glc");
+    Assert.assertNotNull(response);
+    
+    logger.debug(response);
+    logger.debug(response.getAccessionNumber());
+    Assert.assertEquals(new BigInteger("0"),response.getResponseMessage().getErrorCode());
+    Assert.assertEquals("G15021LG", response.getAccessionNumber());
+  }
+  
 }
