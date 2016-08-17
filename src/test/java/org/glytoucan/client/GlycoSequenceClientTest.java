@@ -73,4 +73,15 @@ public class GlycoSequenceClientTest {
     Assert.assertEquals("G15021LG", response.getAccessionNumber());
   }
   
+  @Test
+  public void testGInvalid() throws Exception {
+    
+    GlycoSequenceDetailResponse response = glycoSequenceClient.detailRequest("GTESTING");
+    Assert.assertNotNull(response);
+    
+    logger.debug(response);
+    logger.debug(response.getDescription());
+    Assert.assertEquals(new BigInteger("-100"),response.getResponseMessage().getErrorCode());
+    Assert.assertEquals("GTESTING", response.getAccessionNumber());
+  }
 }
