@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.glytoucan</groupId>
         <artifactId>pom</artifactId>
-        <version>1.2.4-TOCO-SNAPSHOT</version>
+        <version>1.2.5-TOCO-SNAPSHOT</version>
     </parent>
 
 	<properties>
@@ -48,7 +48,7 @@
 		<dependency>
 			<groupId>org.glytoucan</groupId>
 			<artifactId>model</artifactId>
-			<version>0.0.2-SNAPSHOT</version>
+        <version>1.2.4-TOCO-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.ws</groupId>
@@ -137,16 +137,7 @@
         </descriptorRefs>
      
       </configuration>
-                 <executions>
-          <execution>
-            <id>make-assembly</id> <!-- this is used for inheritance merges -->
-            <phase>package</phase> <!-- bind to the packaging phase -->
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
-    </plugin>
+   </plugin>
 		</plugins>
 	</build>
 
