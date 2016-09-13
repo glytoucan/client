@@ -35,8 +35,8 @@ public class SimpleTests {
 	@Test(expected=HttpClientErrorException.class)
 	public void testSimpleProtected() {
 		Map<String, Object>  map = new HashMap<String, Object>();
-		map.put(GlycanClientRegisterSpec.USERNAME, "aoki");
-		map.put(GlycanClientRegisterSpec.API_KEY, "a");
+		map.put(GlycanRegisterRest.USERNAME, "aoki");
+		map.put(GlycanRegisterRest.API_KEY, "a");
 		map.put(GlycanClientRegisterSpec.HOSTNAME, "http://test.api.glytoucan.org");
 		map.put(GlycanClientRegisterSpec.CONTEXT_PATH, "/test");
 		
@@ -52,7 +52,7 @@ public class SimpleTests {
 //		map.put(GlycanSpec.API_KEY, "a");
 		
 		Map<String, Object> results = glycanQueryRest.getListStructures(map);
-		GlycanList list = (GlycanList)results.get(GlycanClientRegisterSpec.MESSAGE);
+		GlycanList list = (GlycanList)results.get(GlycanRegisterRest.MESSAGE);
 		
 		logger.debug(list);
 		Assert.isTrue(list.getGlycans().size() > 0);
@@ -67,7 +67,7 @@ public class SimpleTests {
 		map.put(GlycanClientQuerySpec.OFFSET, "200");
 		
 		Map<String, Object> results = glycanQueryRest.getListStructures(map);
-		GlycanList list = (GlycanList)results.get(GlycanClientRegisterSpec.MESSAGE);
+		GlycanList list = (GlycanList)results.get(GlycanRegisterRest.MESSAGE);
 		List<Object> objList = list.getGlycans();
 		
 		List<String> strList = new ArrayList<String>();
@@ -83,7 +83,7 @@ public class SimpleTests {
 		map.put(GlycanClientQuerySpec.OFFSET, "200000");
 		
 		Map<String, Object> results = glycanQueryRest.getListStructures(map);
-		GlycanList list = (GlycanList)results.get(GlycanClientRegisterSpec.MESSAGE);
+		GlycanList list = (GlycanList)results.get(GlycanRegisterRest.MESSAGE);
 		List<Object> objList = list.getGlycans();
 		
 		List<String> strList = new ArrayList<String>();

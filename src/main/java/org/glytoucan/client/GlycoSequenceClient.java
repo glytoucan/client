@@ -2,12 +2,12 @@ package org.glytoucan.client;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.glytoucan.client.soap.GlycoSequenceCountRequest;
-import org.glytoucan.client.soap.GlycoSequenceCountResponse;
-import org.glytoucan.client.soap.GlycoSequenceDetailRequest;
-import org.glytoucan.client.soap.GlycoSequenceDetailResponse;
-import org.glytoucan.client.soap.GlycoSequenceSearchResponse;
-import org.glytoucan.client.soap.GlycoSequenceTextSearchRequest;
+import org.glytoucan.client.model.GlycoSequenceCountRequest;
+import org.glytoucan.client.model.GlycoSequenceCountResponse;
+import org.glytoucan.client.model.GlycoSequenceDetailRequest;
+import org.glytoucan.client.model.GlycoSequenceDetailResponse;
+import org.glytoucan.client.model.GlycoSequenceSearchResponse;
+import org.glytoucan.client.model.GlycoSequenceTextSearchRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 

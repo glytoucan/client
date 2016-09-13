@@ -4,10 +4,9 @@ import java.math.BigInteger;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.glytoucan.client.soap.GlycoSequenceCountRequest;
-import org.glytoucan.client.soap.GlycoSequenceCountResponse;
-import org.glytoucan.client.soap.GlycoSequenceDetailResponse;
-import org.glytoucan.client.soap.GlycoSequenceSearchResponse;
+import org.glytoucan.client.model.GlycoSequenceCountResponse;
+import org.glytoucan.client.model.GlycoSequenceDetailResponse;
+import org.glytoucan.client.model.GlycoSequenceSearchResponse;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@SpringApplicationConfiguration(classes = { Application.class, GlycanTestConfig.class })
+@SpringApplicationConfiguration(classes = { Application.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class GlycoSequenceClientTest {
 

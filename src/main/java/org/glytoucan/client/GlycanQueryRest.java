@@ -124,7 +124,7 @@ public class GlycanQueryRest implements GlycanClientQuerySpec {
     String cmd = GlycanClientRegisterSpec.LIST_CMD;
     HttpEntity<?> requestEntity = new HttpEntity(getHeaders(env));
     final ResponseEntity<GlycanList> responseEntity = submit(requestEntity, cmd, gmap);
-    gmap.put(GlycanClientRegisterSpec.MESSAGE, responseEntity.getBody());
+    gmap.put(GlycanRegisterRest.MESSAGE, responseEntity.getBody());
     return gmap;
   }
 

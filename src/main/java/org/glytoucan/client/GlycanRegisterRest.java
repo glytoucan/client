@@ -1,41 +1,13 @@
 package org.glytoucan.client;
 
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.security.KeyManagementException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
-import javax.xml.bind.DatatypeConverter;
-
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.conn.ssl.SSLContextBuilder;
-import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.HttpClients;
 import org.glytoucan.model.GlycanRequest;
 import org.glytoucan.model.Message;
-import org.glytoucan.model.spec.GlycanClientQuerySpec;
 import org.glytoucan.model.spec.GlycanClientRegisterSpec;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -45,9 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-public class GlycanRegisterRest implements GlycanClientRegisterSpec {
+public class GlycanRegisterRest extends AuthenticatedApi implements GlycanClientRegisterSpec {
 
 	private static final Log logger = LogFactory.getLog(GlycanRegisterRest.class);
 
@@ -69,6 +39,11 @@ public class GlycanRegisterRest implements GlycanClientRegisterSpec {
 	@Override
 	public Map<String, Object> registerStructure(Map<String, Object> gmap) {
 		
+		if (gmap.containsKey(USERNAME))
+			env.put(USERNAME, gmap.get(USERNAME));
+		if (gmap.containsKey(API_KEY))
+			env.put(API_KEY, gmap.get(API_KEY));
+		
 		String sequence = (String) gmap.get(GlycanClientRegisterSpec.SEQUENCE);
 		String dbId = (String) gmap.get(GlycanClientRegisterSpec.PUBLIC_DATABASE_STRUCTURE_ID);
 		
@@ -82,7 +57,7 @@ public class GlycanRegisterRest implements GlycanClientRegisterSpec {
 														// HttpHeader fails auth
 		HttpEntity<?> requestEntity = new HttpEntity(req, getHeaders(env));
 		final ResponseEntity<Message> responseEntity = submit(requestEntity, cmd);
-		gmap.put(GlycanClientRegisterSpec.MESSAGE, responseEntity.getBody());
+		gmap.put(MESSAGE, responseEntity.getBody());
 		return gmap;
 	}
 
@@ -106,7 +81,7 @@ public class GlycanRegisterRest implements GlycanClientRegisterSpec {
 		else
 			headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
-		String auth = map.get(GlycanClientRegisterSpec.USERNAME) + ":" + map.get(GlycanClientRegisterSpec.API_KEY);
+		String auth = map.get(USERNAME) + ":" + map.get(API_KEY);
 		byte[] encodedAuthorisation = Base64Utils.encode(auth.getBytes());
 		headers.add(GlycanClientRegisterSpec.AUTHORIZATION_HEADER, GlycanClientRegisterSpec.AUTH_BASIC_HEADER + new String(encodedAuthorisation));
 

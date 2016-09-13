@@ -63,6 +63,11 @@
 			<artifactId>vision</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -103,7 +108,7 @@
 <!-- 				</executions> -->
 				<configuration>
 					<schemaLanguage>WSDL</schemaLanguage>
-					<generatePackage>org.glytoucan.client.soap</generatePackage>
+					<generatePackage>org.glytoucan.client.model</generatePackage>
 					<schemas>
 						<schema>
 							<url>http://test.soap.api.glytoucan.org/ws/model.wsdl</url>

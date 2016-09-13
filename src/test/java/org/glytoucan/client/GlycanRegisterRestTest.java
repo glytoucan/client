@@ -3,6 +3,7 @@ package org.glytoucan.client;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.glytoucan.model.Message;
@@ -15,7 +16,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.HttpClientErrorException;
 
-@SpringApplicationConfiguration(classes = {Application.class, GlycanTestConfig.class})
+@SpringApplicationConfiguration(classes = {Application.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class GlycanRegisterRestTest {
 	
@@ -73,7 +74,7 @@ String sequence = "RES\n"
 		Map<String, Object>  results = glycanRest.registerStructure(map);
 		
 		logger.debug(results);
-		Message msg = (Message) results.get(GlycanClientRegisterSpec.MESSAGE);
+		Message msg = (Message) results.get(GlycanRegisterRest.MESSAGE);
 		Assert.assertEquals(msg.getMessage(), "G00052MO");
 	}
 	
@@ -109,7 +110,7 @@ String sequence = "RES\n"
 		Map<String, Object>  results = glycanRest.registerStructure(map);
 		
 		logger.debug(results);
-		Message msg = (Message) results.get(GlycanClientRegisterSpec.MESSAGE);
+		Message msg = (Message) results.get(GlycanRegisterRest.MESSAGE);
 		Assert.assertEquals(msg.getMessage(), "G00048MO");
 	}
 	
@@ -143,7 +144,7 @@ String sequence = "RES\n"
 		Map<String, Object>  results = glycanRest.registerStructure(map);
 		
 		logger.debug(results);
-		Message msg = (Message) results.get(GlycanClientRegisterSpec.MESSAGE);
+		Message msg = (Message) results.get(GlycanRegisterRest.MESSAGE);
 		Assert.assertEquals(msg.getMessage(), "G00052MO");
 	}
 	
@@ -167,7 +168,7 @@ String sequence = "RES\n"
 		Map<String, Object>  results = glycanRest.registerStructure(map);
 		
 		logger.debug(results);
-		Message msg = (Message) results.get(GlycanClientRegisterSpec.MESSAGE);
+		Message msg = (Message) results.get(GlycanRegisterRest.MESSAGE);
 		Assert.assertEquals(msg.getMessage(), "RES\n1b:o-dgal-HEX-0:0|1:aldi|1:d\n2b:x-dglc-HEX-1:5\n3b:x-dgal-HEX-1:5\n4s:n-acetyl\nLIN\n1:1o(-1+1)2d\n2:2o(-1+1)3d\n3:2d(2+1)4n not accepted");
 		Assert.assertTrue(msg.getError().contains("Error in GlycoCT validation:>Deoxy on C1 impossible"));
 	}
@@ -213,10 +214,42 @@ String sequence = "RES\n"
 		Map<String, Object>  results = glycanRest.registerStructure(map);
 		
 		logger.debug(results);
-		Message msg = (Message) results.get(GlycanClientRegisterSpec.MESSAGE);
+		Message msg = (Message) results.get(GlycanRegisterRest.MESSAGE);
 		Assert.assertEquals(msg.getMessage(), "RES\n1b:o-dgal-HEX-0:0|1:aldi|1:d\n2b:x-dglc-HEX-1:5\n3b:x-dgal-HEX-1:5\n4s:n-acetyl\nLIN\n1:1o(-1+1)2d\n2:2o(-1+1)3d\n3:2d(2+1)4n not accepted");
 		Assert.assertTrue(msg.getError().contains("Error in GlycoCT validation:>Deoxy on C1 impossible"));
 	}
-
 	
+//	ya29.CjBSAxcwfeasXDNOq3hqJ5PE5i9JSIrIdvifELRvbA8J2jHu-yAc7w6fMyy0nofCkkU
+
+//	@Test(expected=HttpClientErrorException.class)
+	@Test
+	public void testGTCUser() {
+		
+		String sequence = "RES\n"
+				+ "1b:b-dglc-HEX-1:5\n"
+				+ "2s:n-acetyl\n"
+				+ "3b:a-lgal-HEX-1:5|6:d\n"
+				+ "4b:b-dgal-HEX-1:5\n"
+				+ "5b:a-lgal-HEX-1:5|6:d\n"
+				+ "LIN\n"
+				+ "1:1d(2+1)2n\n"
+				+ "2:1o(3+1)3d\n"
+				+ "3:1o(4+1)4d\n"
+				+ "4:4o(2+1)5d";
+		
+		Map<String, Object>  map = new HashMap<String, Object>();
+		map.put(GlycanClientRegisterSpec.SEQUENCE, sequence);
+		map.put(GlycanRegisterRest.USERNAME, "1");
+//		map.put(GlycanClientRegisterSpec.API_KEY, "ya29.CjBQAxtMyEE3m1yc46nnDSF_RJ7wzvgXZEgcRnoLMBP6FyXywDPqnyVA5iueZ-91L7s");
+		map.put(GlycanRegisterRest.API_KEY, "JDUkMjAxNjA5MDUwOTM5MjMkVWZzaHNyRVFkMVl4Umx0MjJiczVyZFZVNDQ5bUJBVTBoQTdaeGpiUkRpMw==");
+		
+//		map.put(GlycanClientRegisterSpec.PUBLIC_DATABASE_STRUCTURE_ID, "999");
+		
+		Map<String, Object>  results = glycanRest.registerStructure(map);
+		
+		logger.debug(results);
+		Message msg = (Message) results.get(GlycanRegisterRest.MESSAGE);
+		Assert.assertEquals("G00052MO", msg.getMessage());
+		Assert.assertTrue(StringUtils.isBlank(msg.getError()));
+	}
 }

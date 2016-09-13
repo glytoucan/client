@@ -68,9 +68,9 @@ public class GlycanConfig {
 		logger.debug("hostname is:>" + hostname + "<");
 		env.put(GlycanClientRegisterSpec.CONTEXT_PATH, context);
 		logger.debug("context is:>" + context + "<");
-		env.put(GlycanClientRegisterSpec.USERNAME, username);
+		env.put(GlycanRegisterRest.USERNAME, username);
 		logger.debug("username is:>" + username + "<");
-		env.put(GlycanClientRegisterSpec.API_KEY, getApiKey());
+		env.put(GlycanRegisterRest.API_KEY, getApiKey());
 		logger.debug("apikey is:>" + getApiKey() + "<");
 
 		GlycanRegisterRest gr = new GlycanRegisterRest();
