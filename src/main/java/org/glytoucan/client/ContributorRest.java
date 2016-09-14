@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.glytoucan.client.model.RegisterContributorResponse;
 import org.glytoucan.model.GlycanRequest;
 import org.glytoucan.model.Message;
 import org.glytoucan.model.RegisterContributorRequest;
@@ -22,6 +23,7 @@ import org.springframework.web.client.RestTemplate;
 public class ContributorRest extends AuthenticatedApi {
 
   public static String NAME="name";
+  public static String ID="id";
 
   private static final Log logger = LogFactory.getLog(ContributorRest.class);
 
@@ -45,15 +47,18 @@ public class ContributorRest extends AuthenticatedApi {
     String cmd = context + "/register";
     @SuppressWarnings({ "unchecked", "rawtypes" }) 
     HttpEntity<?> requestEntity = new HttpEntity(req, getHeaders());
-    final ResponseEntity<Message> responseEntity = submit(requestEntity, cmd);
-    gmap.put(MESSAGE, responseEntity.getBody());
+    final ResponseEntity<RegisterContributorResponse> responseEntity = submit(requestEntity, cmd);
+    RegisterContributorResponse response = responseEntity.getBody();
+    gmap.put(NAME, response.getName());
+    gmap.put(ID, response.getContributorId());
+    gmap.put(MESSAGE, response);
     return gmap;
   }
 
-  private ResponseEntity<Message> submit(HttpEntity<?> requestEntity, String cmd) {
+  private ResponseEntity<RegisterContributorResponse> submit(HttpEntity<?> requestEntity, String cmd) {
     restTemplate.setErrorHandler(new ErrorHandler());
     logger.debug("request:>"+ glycanConfig.getHostname() + cmd);
-    return restTemplate.exchange(glycanConfig.getHostname() + cmd, HttpMethod.POST, requestEntity, Message.class);
+    return restTemplate.exchange(glycanConfig.getHostname() + cmd, HttpMethod.POST, requestEntity, RegisterContributorResponse.class);
   }
 
   private HttpHeaders getHeaders() {

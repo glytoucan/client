@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.glytoucan.client.model.RegisterContributorResponse;
 import org.glytoucan.model.Message;
 import org.glytoucan.model.spec.GlycanClientRegisterSpec;
 import org.junit.Assert;
@@ -38,9 +39,13 @@ public class ContributorTest {
 		
 		Map<String, Object>  results = contributorRest.register(map);
 
-    Message result = (Message) results.get(ContributorRest.MESSAGE);
+		RegisterContributorResponse result = (RegisterContributorResponse) results.get(ContributorRest.MESSAGE);
+    String id = (String)results.get(ContributorRest.ID);
+    String name = (String)results.get(ContributorRest.NAME);
+    
     Assert.assertNotNull(result);
-    Assert.assertEquals(result.getMessage(), "Administrator");
+    Assert.assertNotNull(id);
+    Assert.assertEquals("Administrator", name);
 
 		logger.debug(results);
 	}
