@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.glytoucan.client.config.ContributorConfig;
 import org.glytoucan.client.model.RegisterContributorResponse;
 import org.glytoucan.model.Message;
 import org.glytoucan.model.spec.GlycanClientRegisterSpec;
@@ -18,7 +19,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.HttpClientErrorException;
 
-@SpringApplicationConfiguration(classes = {Application.class, ContributorTest.class })
+@SpringApplicationConfiguration(classes = {Application.class, ContributorConfig.class })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Configuration
 public class ContributorTest {
@@ -49,9 +50,5 @@ public class ContributorTest {
 
 		logger.debug(results);
 	}
-	
-	@Bean
-	ContributorRest contributorRest() {
-	  return new ContributorRest();
-	}
+
 }
