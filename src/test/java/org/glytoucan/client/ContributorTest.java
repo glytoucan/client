@@ -37,7 +37,6 @@ public class ContributorTest {
 		map.put(ContributorRest.NAME, "Administrator");
     map.put(ContributorRest.USERNAME, "1");
     map.put(ContributorRest.API_KEY, "JDUkMjAxNjA5MDUwOTM5MjMkVWZzaHNyRVFkMVl4Umx0MjJiczVyZFZVNDQ5bUJBVTBoQTdaeGpiUkRpMw==");
-		
 		Map<String, Object>  results = contributorRest.register(map);
 
 		RegisterContributorResponse result = (RegisterContributorResponse) results.get(ContributorRest.MESSAGE);

@@ -94,6 +94,6 @@ public class GlycoSequenceClientTest {
     
     logger.debug(response);
     Assert.assertEquals(new BigInteger("0"),response.getResponseMessage().getErrorCode());
-    Assert.assertEquals("59632", response.getCount());
+    Assert.assertEquals("59636", response.getCount());
   }
 }

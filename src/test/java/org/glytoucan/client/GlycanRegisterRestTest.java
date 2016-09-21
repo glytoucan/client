@@ -27,7 +27,8 @@ public class GlycanRegisterRestTest {
 	GlycanClientRegisterSpec glycanRest;
 
 	// these work normally but not with dummy data in test properties.
-	@Test(expected=HttpClientErrorException.class)
+//	@Test(expected=HttpClientErrorException.class)
+	@Test
 	public void testOnlyRegistration() {
 		Map<String, Object>  map = new HashMap<String, Object>();
 		map.put(GlycanClientRegisterSpec.SEQUENCE, "RES\n"
@@ -43,8 +44,8 @@ public class GlycanRegisterRestTest {
 		logger.debug(results);
 	}
 	
-	@Test(expected=HttpClientErrorException.class)
-//	@Test
+//	@Test(expected=HttpClientErrorException.class)
+	@Test
 	public void testG00052MO() {
 String sequence = "RES\n"
 		+ "1b:b-dglc-HEX-1:5\n"
@@ -78,8 +79,8 @@ String sequence = "RES\n"
 		Assert.assertEquals(msg.getMessage(), "G00052MO");
 	}
 	
-	@Test(expected=HttpClientErrorException.class)
-//	@Test
+//	@Test(expected=HttpClientErrorException.class)
+	@Test
 	public void testRegistrationWithId() {
 String sequence = "RES\n"
 		+ "1b:b-dglc-HEX-1:5\n"
@@ -105,8 +106,10 @@ String sequence = "RES\n"
 	4:4o(2+1)5d*/
 		Map<String, Object>  map = new HashMap<String, Object>();
 		map.put(GlycanClientRegisterSpec.SEQUENCE, sequence);
-		map.put(GlycanClientRegisterSpec.PUBLIC_DATABASE_STRUCTURE_ID, "323");
-		
+		map.put(GlycanClientRegisterSpec.PUBLIC_DATABASE_STRUCTURE_ID, "123");
+    map.put(GlycanRegisterRest.USERNAME, "254");
+    map.put(GlycanRegisterRest.API_KEY, "JDUkMjAxNjA5MTYwNjEwMjIkUkYxbUhNTndZRU1nenMzTWI5bk4yR0tPd1ZFaEtaVWhIaG9wdXhKbVVsOA==");
+
 		Map<String, Object>  results = glycanRest.registerStructure(map);
 		
 		logger.debug(results);
@@ -114,9 +117,9 @@ String sequence = "RES\n"
 		Assert.assertEquals(msg.getMessage(), "G00048MO");
 	}
 	
-	@Test(expected=HttpClientErrorException.class)
-//	@Test
-	public void testNewwithCRLF() {
+//	@Test(expected=HttpClientErrorException.class)
+	@Test
+	public void testNewwithCRLFNoId() {
         String sequence = "RES\r\n"
         		+ "1b:x-llyx-PEN-1:5\r\n"
         		+ "2b:x-dgal-HEX-1:5\r\n"
@@ -139,18 +142,18 @@ String sequence = "RES\n"
 	4:4o(2+1)5d*/
 		Map<String, Object>  map = new HashMap<String, Object>();
 		map.put(GlycanClientRegisterSpec.SEQUENCE, sequence);
-		map.put(GlycanClientRegisterSpec.PUBLIC_DATABASE_STRUCTURE_ID, "999");
+//		map.put(GlycanClientRegisterSpec.PUBLIC_DATABASE_STRUCTURE_ID, "999");
 		
 		Map<String, Object>  results = glycanRest.registerStructure(map);
 		
 		logger.debug(results);
 		Message msg = (Message) results.get(GlycanRegisterRest.MESSAGE);
-		Assert.assertEquals(msg.getMessage(), "G00052MO");
+		Assert.assertEquals("G67118QU", msg.getMessage());
 	}
 	
 
-	@Test(expected=HttpClientErrorException.class)
-//	@Test
+//	@Test(expected=HttpClientErrorException.class)
+	@Test
 	public void testInvalidGlycoct() {
 		String sequence = "RES\n"
         		+ "1b:o-dgal-HEX-0:0|1:aldi|1:d\n"
@@ -163,7 +166,10 @@ String sequence = "RES\n"
         		+ "3:2d(2+1)4n";
 		Map<String, Object>  map = new HashMap<String, Object>();
 		map.put(GlycanClientRegisterSpec.SEQUENCE, sequence);
-		map.put(GlycanClientRegisterSpec.PUBLIC_DATABASE_STRUCTURE_ID, "999");
+    map.put(GlycanRegisterRest.USERNAME, "254");
+    map.put(GlycanRegisterRest.API_KEY, "JDUkMjAxNjA5MTYwNjEwMjIkUkYxbUhNTndZRU1nenMzTWI5bk4yR0tPd1ZFaEtaVWhIaG9wdXhKbVVsOA==");
+
+    //		map.put(GlycanClientRegisterSpec.PUBLIC_DATABASE_STRUCTURE_ID, "999");
 		
 		Map<String, Object>  results = glycanRest.registerStructure(map);
 		
@@ -173,7 +179,7 @@ String sequence = "RES\n"
 		Assert.assertTrue(msg.getError().contains("Error in GlycoCT validation:>Deoxy on C1 impossible"));
 	}
 	
-	@Test(expected=HttpClientErrorException.class)
+//	@Test(expected=HttpClientErrorException.class)
 //	@Test
 	public void testUnicarbDB() {
 		
@@ -215,7 +221,7 @@ String sequence = "RES\n"
 		
 		logger.debug(results);
 		Message msg = (Message) results.get(GlycanRegisterRest.MESSAGE);
-		Assert.assertEquals(msg.getMessage(), "RES\n1b:o-dgal-HEX-0:0|1:aldi|1:d\n2b:x-dglc-HEX-1:5\n3b:x-dgal-HEX-1:5\n4s:n-acetyl\nLIN\n1:1o(-1+1)2d\n2:2o(-1+1)3d\n3:2d(2+1)4n not accepted");
+		Assert.assertTrue(msg.getMessage().contains("not accepted"));
 		Assert.assertTrue(msg.getError().contains("Error in GlycoCT validation:>Deoxy on C1 impossible"));
 	}
 	

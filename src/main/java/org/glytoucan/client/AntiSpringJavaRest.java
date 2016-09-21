@@ -9,7 +9,30 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class AntiSpringJavaRest {
 
-	public String register(String sequence) {
+
+  public String register(String sequence, String contributorId, String apiKey) {
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put(GlycanClientRegisterSpec.SEQUENCE, sequence);
+    map.put(GlycanRegisterRest.USERNAME, contributorId);
+    map.put(GlycanRegisterRest.API_KEY, apiKey);
+
+    String result = submit(map);
+
+    return result;
+  }
+  
+  public String register(String sequence, String id, String contributorId, String apiKey)  {
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put(GlycanClientRegisterSpec.SEQUENCE, sequence);
+    map.put(GlycanClientRegisterSpec.PUBLIC_DATABASE_STRUCTURE_ID, id);
+    map.put(GlycanRegisterRest.USERNAME, contributorId);
+    map.put(GlycanRegisterRest.API_KEY, apiKey);
+    String result = submit(map);
+
+    return result;
+  }
+  
+  public String register(String sequence) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(GlycanClientRegisterSpec.SEQUENCE, sequence);
 
