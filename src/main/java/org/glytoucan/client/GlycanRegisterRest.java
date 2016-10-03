@@ -47,6 +47,9 @@ public class GlycanRegisterRest extends AuthenticatedApi implements GlycanClient
 		String sequence = (String) gmap.get(GlycanClientRegisterSpec.SEQUENCE);
 		String dbId = (String) gmap.get(GlycanClientRegisterSpec.PUBLIC_DATABASE_STRUCTURE_ID);
 		
+		logger.debug("sequence:>" + sequence + "<");
+		logger.debug("dbId:>" + dbId + "<");
+		
 		GlycanRequest req = new GlycanRequest();
 		req.setPublicDatabaseStructureId(dbId);
 		req.setSequence(sequence);
@@ -87,6 +90,4 @@ public class GlycanRegisterRest extends AuthenticatedApi implements GlycanClient
 
 		return headers;
 	}
-
-
 }
