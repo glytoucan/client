@@ -33,7 +33,6 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
-import org.glycoinfo.vision.util.Encoding;
 import org.glytoucan.model.GlycanList;
 import org.glytoucan.model.spec.GlycanClientQuerySpec;
 import org.glytoucan.model.spec.GlycanClientRegisterSpec;

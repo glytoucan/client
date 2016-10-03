@@ -10,7 +10,6 @@ import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
-import org.glycoinfo.vision.util.Encoding;
 import org.glytoucan.client.config.GlycanQueryConfig;
 import org.glytoucan.model.spec.GlycanClientQuerySpec;
 import org.junit.Assert;
@@ -134,18 +133,18 @@ public class GlycanQueryClientTest {
 	         
 	         
 //	@Test
-	public void testRead() throws IOException {
-	    /* Test image to string and string to image start */
-        BufferedImage img = ImageIO.read(new File("/home/aoki/workspace/rdf.glytoucan/src/test/resources/image.png"));
-        BufferedImage newImg;
-        String imgstr;
-        GlycanRegisterRest gsClient = new GlycanRegisterRest();
-        imgstr = Encoding.encodeToString(img, "png");
-        System.out.println(imgstr);
-        newImg = Encoding.decodeToImage(imgstr);
-        ImageIO.write(newImg, "png", new File("/tmp/CopyOfTestImage.png"));
-        /* Test image to string and string to image finish */
-	}
+//	public void testRead() throws IOException {
+//	    /* Test image to string and string to image start */
+//        BufferedImage img = ImageIO.read(new File("/home/aoki/workspace/rdf.glytoucan/src/test/resources/image.png"));
+//        BufferedImage newImg;
+//        String imgstr;
+//        GlycanRegisterRest gsClient = new GlycanRegisterRest();
+//        imgstr = Encoding.encodeToString(img, "png");
+//        System.out.println(imgstr);
+//        newImg = Encoding.decodeToImage(imgstr);
+//        ImageIO.write(newImg, "png", new File("/tmp/CopyOfTestImage.png"));
+//        /* Test image to string and string to image finish */
+//	}
 	
 //String url = hostname + "/glyspace/service/glycans/image/glycan?format=png&notation=cfg&style=extended";
 	@Test
