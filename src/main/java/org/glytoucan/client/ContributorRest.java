@@ -23,6 +23,7 @@ import org.springframework.web.client.RestTemplate;
 public class ContributorRest extends AuthenticatedApi {
 
   public static String NAME="name";
+  public static String EMAIL="email";
   public static String ID="id";
 
   private static final Log logger = LogFactory.getLog(ContributorRest.class);
@@ -43,6 +44,7 @@ public class ContributorRest extends AuthenticatedApi {
     
     RegisterContributorRequest req = new RegisterContributorRequest();
     req.setName((String) gmap.get(NAME));
+    req.setEmail((String) gmap.get(EMAIL));
 
     String cmd = context + "/register";
     @SuppressWarnings({ "unchecked", "rawtypes" }) 
