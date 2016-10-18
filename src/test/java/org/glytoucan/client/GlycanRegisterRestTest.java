@@ -245,7 +245,7 @@ String sequence = "RES\n"
 		
 		Map<String, Object>  map = new HashMap<String, Object>();
 		map.put(GlycanClientRegisterSpec.SEQUENCE, sequence);
-		map.put(GlycanRegisterRest.USERNAME, "1");
+		map.put(GlycanRegisterRest.USERNAME, "815e7cbca52763e5c3fbb5a4dccc176479a50e2367f920843c4c35dca112e33d");
 //		map.put(GlycanClientRegisterSpec.API_KEY, "ya29.CjBQAxtMyEE3m1yc46nnDSF_RJ7wzvgXZEgcRnoLMBP6FyXywDPqnyVA5iueZ-91L7s");
 		map.put(GlycanRegisterRest.API_KEY, "JDUkMjAxNjA5MDUwOTM5MjMkVWZzaHNyRVFkMVl4Umx0MjJiczVyZFZVNDQ5bUJBVTBoQTdaeGpiUkRpMw==");
 		

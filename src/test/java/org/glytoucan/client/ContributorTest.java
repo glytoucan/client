@@ -35,7 +35,7 @@ public class ContributorTest {
 	public void testOnlyRegistration() {
 		Map<String, Object>  map = new HashMap<String, Object>();
 		map.put(ContributorRest.NAME, "Administrator");
-    map.put(ContributorRest.USERNAME, "1");
+    map.put(ContributorRest.USERNAME, "815e7cbca52763e5c3fbb5a4dccc176479a50e2367f920843c4c35dca112e33d");
     map.put(ContributorRest.API_KEY, "JDUkMjAxNjA5MDUwOTM5MjMkVWZzaHNyRVFkMVl4Umx0MjJiczVyZFZVNDQ5bUJBVTBoQTdaeGpiUkRpMw==");
 		Map<String, Object>  results = contributorRest.register(map);
 
