@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.glytoucan.model.GlycanRequest;
@@ -46,6 +47,7 @@ public class GlycanRegisterRest extends AuthenticatedApi implements GlycanClient
 		
 		String sequence = (String) gmap.get(GlycanClientRegisterSpec.SEQUENCE);
 		String dbId = (String) gmap.get(GlycanClientRegisterSpec.PUBLIC_DATABASE_STRUCTURE_ID);
+                String cmd = (String) gmap.get(GlycanClientRegisterSpec.REGISTER_CMD);
 		
 		logger.debug("sequence:>" + sequence + "<");
 		logger.debug("dbId:>" + dbId + "<");
@@ -54,7 +56,6 @@ public class GlycanRegisterRest extends AuthenticatedApi implements GlycanClient
 		req.setPublicDatabaseStructureId(dbId);
 		req.setSequence(sequence);
 
-		String cmd = GlycanClientRegisterSpec.REGISTER_CMD;
 		@SuppressWarnings({ "unchecked", "rawtypes" }) // for some reason
 														// setting this to
 														// HttpHeader fails auth
@@ -66,6 +67,8 @@ public class GlycanRegisterRest extends AuthenticatedApi implements GlycanClient
 
 	private ResponseEntity<Message> submit(HttpEntity<?> requestEntity, String cmd) {
 		restTemplate.setErrorHandler(new ErrorHandler());
+		if (StringUtils.isBlank(cmd))
+		  cmd = GlycanClientRegisterSpec.REGISTER_CMD;
 		logger.debug("request:>"+ env.get(GlycanClientRegisterSpec.HOSTNAME) + (String) env.get(GlycanClientRegisterSpec.CONTEXT_PATH) + cmd);
 		return restTemplate.exchange((String) env.get(GlycanClientRegisterSpec.HOSTNAME) + (String) env.get(GlycanClientRegisterSpec.CONTEXT_PATH)
 				+ cmd, HttpMethod.POST, requestEntity, Message.class);
