@@ -354,7 +354,7 @@ String sequence = "RES\n"
        "2:1o(3+1)3d\n" + 
        "3:3o(2+1)4d\n" + 
        "4:1o(4+1)5d\n" + 
-       " removed.");
+       " removed (if it existed).");
  }
  
  @Test

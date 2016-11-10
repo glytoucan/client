@@ -36,7 +36,8 @@ public class ContributorTest {
 		Map<String, Object>  map = new HashMap<String, Object>();
 		map.put(ContributorRest.NAME, "Administrator");
     map.put(ContributorRest.USERNAME, "815e7cbca52763e5c3fbb5a4dccc176479a50e2367f920843c4c35dca112e33d");
-    map.put(ContributorRest.API_KEY, "JDUkMjAxNjA5MDUwOTM5MjMkVWZzaHNyRVFkMVl4Umx0MjJiczVyZFZVNDQ5bUJBVTBoQTdaeGpiUkRpMw==");
+    map.put(ContributorRest.API_KEY, "b83f8b8040a584579ab9bf784ef6275fe47b5694b1adeb82e076289bf17c2632");
+    map.put(ContributorRest.EMAIL, "glytoucan@gmail.com");
 		Map<String, Object>  results = contributorRest.register(map);
 
 		RegisterContributorResponse result = (RegisterContributorResponse) results.get(ContributorRest.MESSAGE);
@@ -49,5 +50,4 @@ public class ContributorTest {
 
 		logger.debug(results);
 	}
-
 }
