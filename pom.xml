@@ -48,7 +48,7 @@
 		<dependency>
 			<groupId>org.glytoucan</groupId>
 			<artifactId>model</artifactId>
-        <version>1.2.4-TOCO-SNAPSHOT</version>
+        <version>1.2.6-TOCO-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.ws</groupId>
