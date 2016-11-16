@@ -8,7 +8,7 @@ import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
 @Configuration
 public class ServerConfiguration {
-  @Value("${glytoucan.api.url:http://test.soap.api.glytoucan.org/ws}")
+  @Value("${glytoucan.api.url:http://test.api.glytoucan.org/soap/ws}")
   String defaultUri;
   
   @Bean
