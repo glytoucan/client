@@ -1,0 +1,42 @@
+version: '2'
+services:
+  api:
+    extends:
+      file: ${WORKSPACE_PARENT}/${WORKSPACE}/${PROJECT}/docker-compose.api.yml
+      service: api
+  soap.api:
+    extends:
+      file: ${WORKSPACE_PARENT}/${WORKSPACE}/${PROJECT}/docker-compose.soap.api.yml
+      service: soap.api
+  client:
+    image: maven:3.3.9-jdk-8
+    volumes:
+      - ${HOME}/glytoucan/maven:/root/.m2
+      - ${WORKSPACE_PARENT}/${WORKSPACE}/${PROJECT}:/workspace
+      - /etc/localtime:/etc/localtime
+    working_dir: /workspace/client
+    command: /workspace/client/wait/wait-for-it.sh -t 120 api:80 -- /workspace/client/wait/wait-for-it.sh -t 120 soap.api:80 -- mvn deploy
+    links:
+      - proxy:test.api.glytoucan.org
+    depends_on:
+      - api
+      - soap.api
+      - admin
+      - proxy
+  admin:
+    extends:
+      file: ../admin/docker-compose.yml
+      service: admin
+  proxy:
+    build: ../docker-apache-api/
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - $HOME/glytoucan/proxy/log:/var/log/apache2
+    links:
+      - api:test.api.glytoucan.org
+      - soap.api:test.soap.api.glytoucan.org
+      - admin:test.admin.api.glytoucan.org
+    ports:
+      - 891:80
+
+
