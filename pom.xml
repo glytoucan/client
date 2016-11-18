@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.glytoucan</groupId>
         <artifactId>pom</artifactId>
-        <version>1.2.6-TOCO</version>
+        <version>1.2.6.1-TOCO</version>
     </parent>
 
 	<properties>
