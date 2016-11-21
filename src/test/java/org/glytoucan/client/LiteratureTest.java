@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.glytoucan.client.config.ContributorConfig;
+import org.glytoucan.client.config.LiteratureConfig;
 import org.glytoucan.client.model.RegisterContributorResponse;
 import org.glytoucan.client.model.RegisterLiteratureRequestResponse;
 import org.glytoucan.client.model.ResponseMessage;
@@ -21,9 +22,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.HttpClientErrorException;
 
-@SpringApplicationConfiguration(classes = { Application.class, ContributorConfig.class })
+@SpringApplicationConfiguration(classes = { Application.class, LiteratureConfig.class })
 @RunWith(SpringJUnit4ClassRunner.class)
-@Configuration
 public class LiteratureTest {
 
 	private static final Log logger = LogFactory.getLog(LiteratureTest.class);
@@ -39,6 +39,8 @@ public class LiteratureTest {
 		map.put(LiteratureRest.API_KEY, "b83f8b8040a584579ab9bf784ef6275fe47b5694b1adeb82e076289bf17c2632");
 		map.put(LiteratureRest.ACCESSION_NUMBER, "G00029MO");
 		map.put(LiteratureRest.PUBLICATION_ID, "9565568");
+		map.put(LiteratureRest.REMOVE_FLAG, false);
+		
 		Map<String, Object> results = rest.register(map);
 
 		ResponseMessage result = (ResponseMessage) results

@@ -47,7 +47,7 @@ public class LiteratureRest extends AuthenticatedApi {
     RegisterLiteratureRequestResponse reqres = new RegisterLiteratureRequestResponse();
     reqres.setAccessionNumber((String) gmap.get(ACCESSION_NUMBER));
     reqres.setPublicationId((String) gmap.get(PUBLICATION_ID));
-    reqres.setRemoveFlag((Boolean)gmap.get(REMOVE_FLAG));
+    reqres.setRemoveFlag(gmap.get(REMOVE_FLAG) != null? (Boolean)gmap.get(REMOVE_FLAG): false);
 
     String cmd = context + "/register";
     @SuppressWarnings({ "unchecked", "rawtypes" }) 
