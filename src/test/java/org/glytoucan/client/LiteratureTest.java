@@ -43,17 +43,22 @@ public class LiteratureTest {
 		
 		Map<String, Object> results = rest.register(map);
 
-		ResponseMessage result = (ResponseMessage) results
+    logger.debug(results);
+
+    ResponseMessage result = (ResponseMessage) results
 				.get(LiteratureRest.MESSAGE);
+    Assert.assertNotNull(result);
+    Assert.assertEquals(0, result.getErrorCode());
+    logger.debug(result.getErrorCode());
+    logger.debug(result.getMessage());
 		String accNum = (String) results.get(LiteratureRest.ACCESSION_NUMBER);
 		String id = (String) results.get(LiteratureRest.PUBLICATION_ID);
+    String title = (String) results.get(LiteratureRest.TITLE);
 
-		Assert.assertNotNull(result);
 		Assert.assertNotNull(id);
 		Assert.assertNotNull(accNum);
 		Assert.assertEquals("G00029MO", accNum);
 		Assert.assertEquals("9565568", id);
 
-		logger.debug(results);
 	}
 }

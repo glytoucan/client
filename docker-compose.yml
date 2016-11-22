@@ -1,0 +1,13 @@
+version: '2'
+services:
+  client:
+    image: maven:3.3.9-jdk-8
+    volumes:
+      - ${HOME}/glytoucan/maven:/root/.m2
+      - .:/workspace/client
+      - /etc/localtime:/etc/localtime
+    working_dir: /workspace/client
+    command: mvn -DskipTests=true spring-boot:run
+    environment:
+      - API_KEY=1234
+      - API_CONTRIBUTOR_ID=1111

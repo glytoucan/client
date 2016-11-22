@@ -26,6 +26,7 @@ public class LiteratureRest extends AuthenticatedApi {
 
   public static String ACCESSION_NUMBER="accession_number";
   public static String PUBLICATION_ID="publication_id";
+  public static String TITLE="publicat_title";
   public static String REMOVE_FLAG="remove_flag";
 
   private static final Log logger = LogFactory.getLog(LiteratureRest.class);
