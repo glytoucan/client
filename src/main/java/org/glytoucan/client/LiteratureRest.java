@@ -26,6 +26,7 @@ public class LiteratureRest extends AuthenticatedApi {
 
   public static String ACCESSION_NUMBER="accession_number";
   public static String PUBLICATION_ID="publication_id";
+  public static String CONTRIBUTOR_ID="contributor_id";
   public static String TITLE="publicat_title";
   public static String REMOVE_FLAG="remove_flag";
 
@@ -48,6 +49,7 @@ public class LiteratureRest extends AuthenticatedApi {
     RegisterLiteratureRequestResponse reqres = new RegisterLiteratureRequestResponse();
     reqres.setAccessionNumber((String) gmap.get(ACCESSION_NUMBER));
     reqres.setPublicationId((String) gmap.get(PUBLICATION_ID));
+    reqres.setContributorId((String) gmap.get(CONTRIBUTOR_ID));
     reqres.setRemoveFlag(gmap.get(REMOVE_FLAG) != null? (Boolean)gmap.get(REMOVE_FLAG): false);
 
     String cmd = context + "/register";
