@@ -2,6 +2,8 @@ package org.glytoucan.client;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.glytoucan.client.model.GlycoSequenceArchivedRequest;
+import org.glytoucan.client.model.GlycoSequenceArchivedResponse;
 import org.glytoucan.client.model.GlycoSequenceCoreDetailRequest;
 import org.glytoucan.client.model.GlycoSequenceCountRequest;
 import org.glytoucan.client.model.GlycoSequenceCountResponse;
@@ -54,6 +56,22 @@ public class GlycoSequenceClient extends WebServiceGatewaySupport {
 		GlycoSequenceCountRequest request = new GlycoSequenceCountRequest();
 
 		return (GlycoSequenceCountResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+	}
+
+	/**
+	 * 
+	 * Retrieve a list of archived accession numbers
+	 * 
+	 * @return GlycoSequenceArchivedResponse response
+	 */
+	public GlycoSequenceArchivedResponse retrieveArchived(String offset, String limit) {
+		logger.debug("client retrieved archived accession numbers");
+		logger.debug("client accessiong default URI:>" + getDefaultUri() + "<");
+		GlycoSequenceArchivedRequest request = new GlycoSequenceArchivedRequest();
+		request.setOffset(offset);
+		request.setLimit(limit);
+
+		return (GlycoSequenceArchivedResponse)getWebServiceTemplate().marshalSendAndReceive(request);
 	}
 
 }

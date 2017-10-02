@@ -4,6 +4,7 @@ import java.math.BigInteger;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.glytoucan.client.model.GlycoSequenceArchivedResponse;
 import org.glytoucan.client.model.GlycoSequenceCountResponse;
 import org.glytoucan.client.model.GlycoSequenceDetailResponse;
 import org.glytoucan.client.model.GlycoSequenceSearchResponse;
@@ -95,5 +96,16 @@ public class GlycoSequenceClientTest {
     logger.debug(response);
     Assert.assertEquals(new BigInteger("0"),response.getResponseMessage().getErrorCode());
     Assert.assertEquals("61823", response.getCount());
+  }
+  
+  @Test
+  public void testArchived() throws Exception {
+    
+    GlycoSequenceArchivedResponse response = glycoSequenceClient.retrieveArchived("200", "100");
+    Assert.assertNotNull(response);
+    
+    logger.debug(response);
+    Assert.assertEquals(new BigInteger("0"),response.getResponseMessage().getErrorCode());
+    Assert.assertEquals(100, response.getArchivedList().size());
   }
 }
