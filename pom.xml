@@ -110,7 +110,7 @@
 					<generatePackage>org.glytoucan.client.model</generatePackage>
 					<schemas>
 						<schema>
-							<url>${env.API_HOSTNAME}/soap/ws/model.wsdl</url>
+							<url>http://test.api.glytoucan.org/soap/ws/model.wsdl</url>
 						</schema>
 					</schemas>
 					<!-- <generateDirectory>${project.build.directory}/generated-source/java</generateDirectory> -->
