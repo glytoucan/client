@@ -2,6 +2,7 @@ package org.glytoucan.client;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.glytoucan.client.model.GlycoSequenceCoreDetailRequest;
 import org.glytoucan.client.model.GlycoSequenceCountRequest;
 import org.glytoucan.client.model.GlycoSequenceCountResponse;
 import org.glytoucan.client.model.GlycoSequenceDetailRequest;
@@ -15,6 +16,15 @@ public class GlycoSequenceClient extends WebServiceGatewaySupport {
 	private static final Log logger = LogFactory.getLog(GlycoSequenceClient.class);
 
 	public GlycoSequenceDetailResponse detailRequest(String accessionNumber) {
+		logger.debug("client querying :>" + accessionNumber + "<");
+		logger.debug("client accessiong default URI:>" + getDefaultUri() + "<");
+		GlycoSequenceCoreDetailRequest request = new GlycoSequenceCoreDetailRequest();
+		request.setAccessionNumber(accessionNumber);
+
+		return (GlycoSequenceDetailResponse) getWebServiceTemplate().marshalSendAndReceive(request);
+	}
+	
+	public GlycoSequenceDetailResponse detailAllRequest(String accessionNumber) {
 		logger.debug("client querying :>" + accessionNumber + "<");
 		logger.debug("client accessiong default URI:>" + getDefaultUri() + "<");
 		GlycoSequenceDetailRequest request = new GlycoSequenceDetailRequest();
