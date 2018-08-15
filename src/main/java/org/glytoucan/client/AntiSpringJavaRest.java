@@ -3,6 +3,7 @@ package org.glytoucan.client;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.glytoucan.client.GlycanRegisterRest;
 import org.glytoucan.model.Message;
 import org.glytoucan.model.spec.GlycanClientRegisterSpec;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
